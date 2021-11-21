@@ -14,7 +14,7 @@
 <jsp:include page="/WEB-INF/views/include/head.jsp" />
 <%---------- Head Include End ----------%>
 
-<link rel="stylesheet" href="/resources/css/quiz.css">
+<link href="/resources/css/quiz.css" rel="stylesheet">
 
 </head>
 

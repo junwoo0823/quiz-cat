@@ -38,9 +38,8 @@
 
 		<interceptor>
 			<mapping path="/member/*" />
-			<exclude-mapping path="/member/account" />
-			<exclude-mapping path="/member/login" />
 			<exclude-mapping path="/member/signUp" />
+			<exclude-mapping path="/member/login" />
 			<beans:bean class="com.example.interceptor.LoginCheckInterceptor" />
 		</interceptor>
 

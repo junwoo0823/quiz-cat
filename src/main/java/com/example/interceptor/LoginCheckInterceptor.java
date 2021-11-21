@@ -23,7 +23,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 		String id = (String) session.getAttribute("id");
 
 		if (id == null) {
-			response.sendRedirect("/member/account");
+			response.sendRedirect("/member/signUp");
 			return false;
 		}
 

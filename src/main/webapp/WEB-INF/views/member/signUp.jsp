@@ -18,28 +18,28 @@
 
 <body>
 
-    <%---------- Navigation Include ----------%>
-    <jsp:include page="/WEB-INF/views/include/navigation.jsp" />
-    <%---------- Navigation Include End ----------%>
+	<%---------- Navigation Include ----------%>
+	<jsp:include page="/WEB-INF/views/include/navigation.jsp" />
+	<%---------- Navigation Include End ----------%>
 
-    <%---------- Login Modal Include ----------%>
-    <jsp:include page="/WEB-INF/views/include/loginModal.jsp" />
-    <%---------- Login Modal Include End ----------%>
+	<%---------- Login Modal Include ----------%>
+	<jsp:include page="/WEB-INF/views/include/loginModal.jsp" />
+	<%---------- Login Modal Include End ----------%>
 
 	<%---------- Main ----------%>
-	<main class="my-login-page">
-	
-		<form method="POST" class="my-login-validation">
-		
+	<main class="memberPage">
+
+		<form action="/member/signUp" class="my-login-validation" method="POST" enctype="multipart/form-data">
+
 			<section>
 				<div class="container">
 					<div class="row justify-content-md-center">
 						<div class="card-wrapper">
 							<div class="card fat shadow rounded">
 								<div class="card-body">
-								
-									<h4 class="card-title text-center">Register</h4>
-									
+
+									<h4 class="card-title text-center">회원가입</h4>
+
 									<hr>
 
 									<div class="form-group input-group-sm">
@@ -49,14 +49,14 @@
 									</div>
 
 									<div class="form-group input-group-sm">
-										<label for="password">비밀번호</label>
-										<input id="password" type="password" class="form-control" name="password" required>
+										<label for="passwd">비밀번호</label>
+										<input id="passwd" type="password" class="form-control" name="passwd" required>
 										<div class="invalid-feedback">Password is Password?</div>
 									</div>
 
 									<div class="form-group input-group-sm">
-										<label for="password2">비밀번호 재확인</label>
-										<input id="password2" type="password" class="form-control" name="password2" required>
+										<label for="passwd2">비밀번호 재확인</label>
+										<input id="passwd2" type="password" class="form-control" name="passwd2" required>
 									</div>
 
 									<div class="form-group input-group-sm">
@@ -65,19 +65,19 @@
 										<div class="invalid-feedback">What's your birthday?</div>
 									</div>
 
+									<div class="form-group input-group-sm">
+										<label for="multipartFile">프로필 사진</label>
+										<input type="file" class="form-control" id="formFileSm" name="multipartFile" aria-label="Upload">
+									</div>
+
 									<div class="text-center">
-										<button type="button" id="optionalBtn" class="btn btn-secondary btn-sm" onclick="option();">추가 정보</button>
+										<button type="button" id="optionalBtn" class="btn btn-secondary btn-sm" onclick="option();">선택 정보</button>
 									</div>
 
 									<fieldset id="optional">
-									
+
 										<hr>
-
-										<div class="form-group input-group-sm">
-											<label for="profile">프로필 사진</label>
-											<input type="file" class="form-control" name="profile" id="profile" aria-label="Upload">
-										</div>
-
+										
 										<div class="form-group input-group-sm">
 											<label for="name">이름</label>
 											<input id="name" type="text" class="form-control" name="name">
@@ -86,12 +86,12 @@
 										<div class="form-group input-group-sm">
 											<label for="gender">성별</label>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="gender" id="gender1" value="M" checked>
-												<label class="form-check-label" for="gender1">남자</label>
+												<input class="form-check-input" type="radio" name="gender" id="gender" value="M" checked>
+												<label class="form-check-label">남자</label>
 											</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="gender" id="gender2" value="F">
-												<label class="form-check-label" for="gender2">여자</label>
+												<input class="form-check-input" type="radio" name="gender" id="gender" value="F">
+												<label class="form-check-label">여자</label>
 											</div>
 										</div>
 
@@ -103,38 +103,39 @@
 										<div class="form-group input-group-sm">
 											<label for="recvEmail">이메일 수신 여부</label>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="recvEmail" id="emailYes" value="Y" checked>
-												<label class="form-check-label" for="emailYes">예</label>
+												<input class="form-check-input" type="radio" name="recvEmail" id="recvEmail" value="Y" checked>
+												<label class="form-check-label">예</label>
 											</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="recvEmail" id="emailNo" value="N">
-												<label class="form-check-label" for="emailNo">아니오</label>
+												<input class="form-check-input" type="radio" name="recvEmail" id="recvEmail" value="N">
+												<label class="form-check-label">아니오</label>
 											</div>
 										</div>
+										
 									</fieldset>
 
 									<hr>
-									
+
 									<div class="form-group d-md-block text-center">
 										<button type="submit" class="btn btn-dark">가입</button>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-			
-		</form>
-		
-    </main>
-    <%---------- Main End ----------%>
 
-    <%---------- Footer Include ----------%>
-    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
-    <%---------- Footer Include End ----------%>
-	
+		</form>
+
+	</main>
+	<%---------- Main End ----------%>
+
+	<%---------- Footer Include ----------%>
+	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+	<%---------- Footer Include End ----------%>
+
 	<script>
 		function option() {
 			$('#optional').show();
