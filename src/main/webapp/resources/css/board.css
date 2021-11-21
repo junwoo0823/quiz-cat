@@ -1,0 +1,30 @@
+main .page-link {
+	color: black;
+}
+
+main #side {
+	cursor: pointer;
+	position: absolute;
+	right: 0;
+	height: 100%;
+	font-size: 1.8em;
+	text-decoration: none;
+	margin-right: 0.4em;
+	color: white;
+}
+
+main li {
+	list-style-type: none;
+	display: inline;
+}
+
+.list li:nth-child(n+2):before {
+	content: "";
+	padding: 0 3px;
+	border-left: 1px solid gray;
+}
+
+#dashedLine {
+	border-top: 1px dashed lightgray;
+	margin: 15px 0;
+}
