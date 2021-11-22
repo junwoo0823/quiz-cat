@@ -40,7 +40,7 @@
 							<strong>퀴즈 게시판</strong>
 						</h2>
 						<c:if test="${ not empty id }">
-							<a href="/quiz/write" id="side"><i class="fas fa-edit"></i></a>
+							<a href="/quiz/write" class="side"><i class="fas fa-pencil-alt"></i></a>
 						</c:if>
 					</div>
 
@@ -63,7 +63,9 @@
 											</div>
 											<div class="d-flex align-items-center">
 												<span class="mr-1"><i class="fa fa-star favourite-note text-warning"></i></span>&nbsp;
-												<span class="mr-1"><i class="fa fa-trash remove-note text-secondary"></i></span>
+												<c:if test="${ id eq bunch.memberId || id eq 'admin' }">
+					                                <span onclick="btnDelete()" id="btn-delete" class="mr-1"><i class="fa fa-trash remove-note text-secondary"></i></span>
+					                            </c:if>
 											</div>
 										</div>
 									</div>
@@ -125,6 +127,17 @@
 	<%---------- Footer Include ----------%>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	<%---------- Footer Include End ----------%>
+	
+	<script>
+     function btnDelete(){
+         var isDelete = confirm('정말 삭제하시겠습니까?');
+         
+         if(isDelete == true){
+             alert('삭제가 완료되었습니다.');
+             location.href='/quiz/delete?bunchNum=${ bunch.num }';
+         }
+     }
+    </script>
 
 </body>
 </html>

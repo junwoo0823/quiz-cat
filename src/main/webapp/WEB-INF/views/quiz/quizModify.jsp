@@ -48,37 +48,38 @@
 								<div id="quizBox" class="p-3">
 									<div class="input-group mb-3">
 										<span class="input-group-text">퀴즈 주제</span>
-										<input type="text" name="title" class="form-control" required>
+										<input type="text" name="title" class="form-control" value="${ bunch.title }" required>
 									</div>
 
-									<div class="quiz-form mb-2">
-										<div class="input-group mb-1">
-											<span class="input-group-text">&nbsp;Q&nbsp;</span>
-											<input type="text" class="form-control" name="questions" required>
-											<button class="btn btn-dark btn-delete-question" type="button">
-												<i class="fas fa-times text-white"></i>
-											</button>
+                                    <c:forEach var="quiz" items="${ bunch.quizList }">
+										<div class="quiz-form mb-2">
+											<div class="input-group mb-1">
+												<span class="input-group-text">&nbsp;Q&nbsp;</span>
+												<input type="text" class="form-control" name="questions" value="${ quiz.question }" required>
+												<button class="btn btn-dark btn-delete-question" type="button">
+													<i class="fas fa-times text-white"></i>
+												</button>
+											</div>
+											<div class="input-group mb-1">
+												<span class="input-group-text">A1</span><input type="text" class="form-control" name="numOnes" value="${ quiz.numOne }" required>
+												<span class="input-group-text">A2</span><input type="text" class="form-control" name="numTwos" value="${ quiz.numTwo }" required>
+												<span class="input-group-text">A3</span><input type="text" class="form-control" name="numThrees" value="${ quiz.numThree }" required>
+												<span class="input-group-text">A4</span><input type="text" class="form-control" name="numFours" value="${ quiz.numFour }" required>
+											</div>
+											<div class="input-group">
+												<label class="input-group-text" for="inputGroupSelect01">&nbsp;답</label>
+												<select class="form-select" name="answers" required>
+													<option value="1" ${ quiz.answer eq '1' ? 'selected' : '' }>A1</option>
+													<option value="2" ${ quiz.answer eq '2' ? 'selected' : '' }>A2</option>
+													<option value="3" ${ quiz.answer eq '3' ? 'selected' : '' }>A3</option>
+													<option value="4" ${ quiz.answer eq '4' ? 'selected' : '' }>A4</option>
+												</select>
+											</div>
 										</div>
-										<div class="input-group mb-1">
-											<span class="input-group-text">A1</span><input type="text" class="form-control" name="numOnes" required>
-											<span class="input-group-text">A2</span><input type="text" class="form-control" name="numTwos" required>
-											<span class="input-group-text">A3</span><input type="text" class="form-control" name="numThrees" required>
-											<span class="input-group-text">A4</span><input type="text" class="form-control" name="numFours" required>
-										</div>
-										<div class="input-group">
-											<label class="input-group-text" for="inputGroupSelect01">&nbsp;답</label>
-											<select class="form-select" name="answers" required>
-												<option value="" disabled selected>?</option>
-												<option value="1">A1</option>
-												<option value="2">A2</option>
-												<option value="3">A3</option>
-												<option value="4">A4</option>
-											</select>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 								<button type="button" class="btn btn-secondary my-2" id="btn-addQuiz">문제 추가</button>
-								<button type="submit" class="btn btn-dark mt-2" class="btn-quiz submit">완료</button>
+								<button type="submit" class="btn btn-dark mt-2" class="btn-quiz submit">수정하기</button>
 							</div>
 						</div>
 

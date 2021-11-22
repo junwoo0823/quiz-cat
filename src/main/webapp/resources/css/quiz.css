@@ -2,7 +2,7 @@ main .page-link {
 	color: black;
 }
 
-main #side {
+main .side {
 	cursor: pointer;
 	position: absolute;
 	right: 0;
@@ -11,6 +11,18 @@ main #side {
 	text-decoration: none;
 	margin-right: 0.4em;
 	color: white;
+}
+
+main #btn-back {
+	right: 0;
+}
+
+main #btn-modify {
+    right: 45px;
+}
+
+main #btn-delete {
+    right: 100px;
 }
 
 .note-has-grid .card {
