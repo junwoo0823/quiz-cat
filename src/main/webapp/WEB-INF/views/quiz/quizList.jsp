@@ -40,7 +40,7 @@
 							<strong>퀴즈 게시판</strong>
 						</h2>
 						<c:if test="${ not empty id }">
-							<a href="#!" id="side"><i class="fas fa-edit"></i></a>
+							<a href="/quiz/write" id="side"><i class="fas fa-edit"></i></a>
 						</c:if>
 					</div>
 
