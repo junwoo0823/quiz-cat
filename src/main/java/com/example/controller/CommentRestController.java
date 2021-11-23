@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,119 +21,99 @@ import com.example.domain.CommentVO;
 import com.example.service.CommentService;
 
 @RestController
-@RequestMapping("/comment/*")
+@RequestMapping("/api/*")
 public class CommentRestController {
 
-	@Autowired
 	private CommentService commentService;
 
-	// 댓글 전체 조회
-	@GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<List<CommentVO>> getAll() {
+	public CommentRestController(CommentService commentService) {
+		super();
+		this.commentService = commentService;
+	}
 
-		List<CommentVO> commentList = commentService.getCommentsAll();
-
-		return new ResponseEntity<List<CommentVO>>(commentList, HttpStatus.OK);
-	} // getAll
-	
-	// 해당 게시글에 있는 댓글 전체 
-	@GetMapping(value = "/list/{boardNum}", produces = { MediaType.APPLICATION_JSON_VALUE,
+	@GetMapping(value = "/comment/{boardNum}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<Map<String, Object>> getCommentByBoardNum(@PathVariable("boardNum") int boardNum) {
+	public ResponseEntity<Map<String, Object>> getCommentsByBoardNum(@PathVariable("boardNum") int boardNum) {
 
 		List<CommentVO> commentList = commentService.getCommentsByBoardNum(boardNum);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("comment", commentList);
+		map.put("commentList", commentList);
+		map.put("count", commentList.size());
 
 		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-	} // getCommentByBoardNum
+	} // getCommentsByBoardNum
 
-	// 댓글 조회
-	@GetMapping(value = "/{num}", produces = { MediaType.APPLICATION_JSON_VALUE,
+	@PostMapping(value = "/comment", consumes = "application/json", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<CommentVO> getComment(@PathVariable("num") int num) {
+	public ResponseEntity<Map<String, Object>> insertComment(@RequestBody CommentVO commentVO) {
 
-		CommentVO commentVO = commentService.getComment(num);
+		System.out.println("commentVO : " + commentVO);
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("comment", commentVO);
+		int nextNum = commentService.getNextNum();
 
-		return new ResponseEntity<CommentVO>(commentVO, HttpStatus.OK);
-	} // getComment
-	
-	// 댓글 쓰기
-	@PostMapping(value = "/write", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<Map<String, Object>> create(@RequestBody CommentVO commentVO) {
-
-		int num = commentService.getNextnum();
-		
-		commentVO.setNum(num);
+		commentVO.setNum(nextNum);
 		commentVO.setRegDate(new Date());
-		commentVO.setReRef(num);
+		commentVO.setReRef(nextNum);
 		commentVO.setReLev(0);
 		commentVO.setReSeq(0);
-		
-		commentService.addComment(commentVO);
 
-		System.out.println(commentVO); 
+		System.out.println("수정 후 commentVO : " + commentVO);
 
-		Map<String, Object> map = new HashMap<>();
+		commentService.insertComment(commentVO);
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
-		map.put("comment", commentVO);
-	
-		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-	} // write
-	
-	// 댓글 수정
-	@PutMapping(value = "/{num}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> modify(@PathVariable("num") int num, @RequestBody CommentVO commentVO, @PathVariable("pageNum") int pageNum) {
 
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+	} // insertComment
+	
+	@PostMapping(value = "/replyComment", consumes = "application/json", produces = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<Map<String, Object>> replyComment(@RequestBody CommentVO commentVO) {
+
+		System.out.println("commentVO : " + commentVO);
+
+		int nextNum = commentService.getNextNum();
+
+		commentVO.setNum(nextNum);
 		commentVO.setRegDate(new Date());
+		commentVO.setReLev(commentVO.getReLev() + 1);
+		commentVO.setReSeq(commentVO.getReSeq() + 1);
+
+		System.out.println("수정 후 commentVO : " + commentVO);
 		
+		commentService.insertReplyComment(commentVO);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", "success");
+
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+	} // replyComment
+
+	@PutMapping(value = "/comment/{num}", consumes = "application/json", produces = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<Map<String, Object>> modifyComment(@RequestBody CommentVO commentVO, @PathVariable int num) {
+
+		System.out.println("commentVO : " + commentVO);
+		System.out.println("num : " + num);
+
 		commentService.updateComment(commentVO);
-		
-		System.out.println("commentVO: " + commentVO);
-	
-		return new ResponseEntity<String>("success", HttpStatus.OK);
-	} // put
-	
-	// 댓글 삭제
-	@DeleteMapping(value = "/{num}", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> remove(@PathVariable("num") int num) {
-		
-		CommentVO commentVO = commentService.getComment(num);
-		int bno = commentVO.getBoardNum();
-		
-		System.out.println("bno: " + bno);
-		System.out.println("commentVO: " + commentVO);
-		
-		int count = commentService.deleteComment(num);
-		
-		return (count > 0) 
-				? new ResponseEntity<String>("success", HttpStatus.OK) 
-						: new ResponseEntity<String>("fail", HttpStatus.BAD_GATEWAY);
-	} // remove
-	
-	// 대댓글 쓰기
-	@PostMapping(value = "/reply", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<Map<String, Object>> reply(@RequestBody CommentVO commentVO) {
 
-		int num = commentService.getNextnum();
-		
-		commentVO.setNum(num);
-		commentVO.setRegDate(new Date());
-		
-		commentService.addReply(commentVO);
-
-		System.out.println(commentVO); 
-
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", "success");
-		map.put("comment", commentVO);
-	
+
 		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-	} // reply
+	} // modifyComment
+
+	@DeleteMapping(value = "/comment/{num}", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> deleteComment(@PathVariable int num) {
+
+		commentService.deleteCommentByNum(num);
+
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	} // deleteComment
+	
 	
 
 }

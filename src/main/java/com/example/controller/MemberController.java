@@ -51,8 +51,6 @@ public class MemberController {
 	@Autowired
 	private ProfileService profileImgService;
 	@Autowired
-	private BoardService boardService;
-	@Autowired
 	private QuizService quizService;
 
 	
@@ -144,17 +142,17 @@ public class MemberController {
 
 		String id = (String) session.getAttribute("id");
 
-		// board 테이블에서 (검색어가 있으면)검색, 페이징 적용한 글 리스트 가져오기
-		List<BoardVO> boardList = boardService.getBoardsbyMemberIdwithPaging(cri, id);
+		List<BoardVO> myBoardList = memberService.getMyBoardListByCri(cri, id);
 
-		// 검색유형, 검색어가 있으면 적용하여 글개수 가져오기
-		int totalCount = boardService.getCountSearchingbyMemberId(cri, id);
+		System.out.println("myBoardList : " + myBoardList);
 
-		// 페이지블록 정보 객체준비. 필요한 정보를 생성자로 전달.
+		int totalCount = memberService.getMyAllBoardsCount(cri, id);
+
+		System.out.println("totalCount : " + totalCount);
+
 		PageDTO pageDTO = new PageDTO(cri, totalCount);
 
-		// 뷰에서 사용할 데이터를 Model 객체에 저장 → 스프링(dispathcer servlet)이 requestScope로 옯겨줌.
-		model.addAttribute("myboardList", boardList);
+		model.addAttribute("boardList", myBoardList);
 		model.addAttribute("pageMaker", pageDTO);
 
 		return "member/myboardList";
@@ -162,24 +160,24 @@ public class MemberController {
 
 	@GetMapping("/myCommentList")
 	public String myreplyListpage(Criteria cri, Model model, HttpSession session) {
-		System.out.println("myCommentlistpage 화면 호출됨...");
 
-		String id = (String) session.getAttribute("id");
+			System.out.println("======== /myComment ========");
 
-		// board 테이블에서 (검색어가 있으면)검색, 페이징 적용한 글 리스트 가져오기
-		List<CommentVO> commentList = boardService.getCommentsByPaging(cri, id);
+			String id = (String) session.getAttribute("id");
 
-		// 검색유형, 검색어가 있으면 적용하여 글개수 가져오기
-		int totalCount = boardService.getCommentCountSearchingforMemberId(cri, id);
+			List<CommentVO> myCommentList = memberService.getMyCommentListByCri(cri, id);
 
-		// 페이지블록 정보 객체준비. 필요한 정보를 생성자로 전달.
-		PageDTO pageDTO = new PageDTO(cri, totalCount);
+			int totalCount = memberService.getMyAllCommentsCount(cri, id);
 
-		// 뷰에서 사용할 데이터를 Model 객체에 저장 → 스프링(dispathcer servlet)이 requestScope로 옯겨줌.
-		model.addAttribute("myComment", commentList);
-		model.addAttribute("pageMaker", pageDTO);
+			System.out.println("myCommentList : " + myCommentList);
+			System.out.println("totalCount : " + totalCount);
 
-		return "member/myCommentList";
+			PageDTO pageDTO = new PageDTO(cri, totalCount);
+
+			model.addAttribute("commentList", myCommentList);
+			model.addAttribute("pageMaker", pageDTO);
+
+			return "member/myCommentList";
 	} // myboardlistpage
 
 	@GetMapping("/myQuizList")

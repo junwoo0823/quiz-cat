@@ -16,6 +16,8 @@
 </footer>
 
 <script src="/resources/js/jquery-3.6.0.min.js"></script>
+<script src="/resources/js/jquery.serializeObject.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/bootstrap.bundle.min.js"></script>
 <script src="/resources/js/basic.js"></script>
 <script src="/resources/js/member.js"></script>

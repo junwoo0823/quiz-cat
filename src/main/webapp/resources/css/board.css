@@ -2,7 +2,7 @@ main .page-link {
 	color: black;
 }
 
-main #side {
+main .side {
 	cursor: pointer;
 	position: absolute;
 	right: 0;
@@ -27,4 +27,34 @@ main li {
 #dashedLine {
 	border-top: 1px dashed lightgray;
 	margin: 15px 0;
+}
+
+main .badge {
+    cursor: pointer;
+    width: auto;
+}
+
+.speech-bubble {
+    width: auto;
+    height: auto;
+    left: 15px;
+    position: relative;
+    background: gray;
+    border-radius: 0.4em;
+    justify-content: center;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 40%;
+    width: 0;
+    height: 0;
+    border: 0.8em solid transparent;
+    border-right-color: gray;
+    border-left: 0;
+    border-top: 0;
+    margin-top: -0.15em;
+    margin-left: -0.5em;
 }
