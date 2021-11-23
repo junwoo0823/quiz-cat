@@ -30,7 +30,7 @@
 
 	<%---------- Main ----------%>
 	<main>
-		<form action="/quiz/write" method="POST">
+		<form action="/quiz/modify?bunchNum=${ bunch.num }" method="POST">
 
 			<%---------- Hero Section ----------%>
 			<section class="hero">

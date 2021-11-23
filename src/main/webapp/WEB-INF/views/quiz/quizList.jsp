@@ -57,7 +57,7 @@
 										<div class="card card-body shadow-sm" onclick="location.href='/quiz/content?bunchNum=${ bunch.num }'">
 											<span class="side-stick"></span>
 											<h5 class="note-title text-truncate mb-0">${ bunch.title }</h5>
-											<p class="badge rounded-pill bg-dark mt-2">${ bunch.quizCount + 1 } 문제</p>
+											<p class="badge rounded-pill bg-dark mt-2">${ bunch.quizCount } 문제</p>
 											<div class="note-content">
 												<p class="note-inner-content text-muted">만든이 : ${ bunch.memberId }</p>
 											</div>
