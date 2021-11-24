@@ -32,20 +32,3 @@
 #optional {
 	display: none;
 }
-
-@media screen and (max-width: 425px) {
-	.memberPage .card-wrapper {
-		width: 90%;
-		margin: 0 auto;
-	}
-}
-
-@media screen and (max-width: 320px) {
-	.memberPage .card.fat {
-		padding: 0;
-	}
-
-	.memberPage .card.fat .card-body {
-		padding: 15px;
-	}
-}

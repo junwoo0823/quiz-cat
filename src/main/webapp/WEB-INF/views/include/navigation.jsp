@@ -16,19 +16,6 @@
                <li class="nav-item">
                   <a class="nav-link" href="/board/list">자유 게시판</a>
                </li>
-<!--                <li class="nav-item dropdown"> -->
-<!--                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" -->
-<!--                      data-bs-toggle="dropdown" aria-expanded="false"> -->
-<!--                      Services -->
-<!--                   </a> -->
-<!--                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
-<!--                      <li><a class="dropdown-item" href="#">Design</a></li> -->
-<!--                      <li><a class="dropdown-item" href="#">Development</a></li> -->
-<!--                      <li><a class="dropdown-item" href="#">Copywriting</a></li> -->
-<!--                      <li><a class="dropdown-item" href="#">Digital Marketing</a></li> -->
-<!--                      <li><a class="dropdown-item" href="#">Growth Hacking</a></li> -->
-<!--                   </ul> -->
-<!--                </li> -->
             </ul>
             
             <c:choose>
@@ -39,7 +26,7 @@
             <c:otherwise>
                 <c:set var="fileCallPath" value="${ profileImg.uploadpath }/${profileImg.memberId}/s_${ profileImg.uuid }_${ profileImg.filename }" />
                 <div class="box mx-3">
-                    <a href="#!" style="color: inherit;"> ${sessionScope.id}님 </a>
+                    <a href="/member/info" style="color: inherit;"> ${sessionScope.id}님 </a>
                     <c:choose>
                         <c:when test="${not empty profileImg }">
                             <img class="profile" src="/display?fileName=${fileCallPath}" style="width:50px; height:50px; border-radius: 100px;">

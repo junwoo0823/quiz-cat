@@ -41,7 +41,7 @@
 						</h2>
 						<a href="#!" class="side"><i class="fas fa-edit"></i></a>
 					</div>
-					<table class="table table-bordered table-hover">
+					<table class="table table-hover">
 						<thead class="table-dark">
 							<tr>
 								<th>번호</th>
