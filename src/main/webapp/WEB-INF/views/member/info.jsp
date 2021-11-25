@@ -42,21 +42,20 @@
 				<div class="card shadow-sm text-center px-0" style="margin: auto 20em">
 				
 				  <div class="card-header">
-				    <ul class="nav nav-tabs card-header-tabs">
-				      <li class="nav-item"><a class="nav-link active" aria-current="true" href="/member/info">내 정보</a></li>
-				      <li class="nav-item"><a class="nav-link" href="/member/passwd">비밀번호 변경</a></li>
-					   <li class="nav-item dropdown">
-						    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내 활동</a>
-						    <ul class="dropdown-menu">
-						        <li><a class="dropdown-item" href="/member/myboardList">내 게시물</a></li>
-						        <li><a class="dropdown-item" href="/member/myCommentList">내 댓글</a></li>
-						        <li><hr class="dropdown-divider"></li>
-						        <li><a class="dropdown-item" href="/member/myQuizList">만든 퀴즈</a></li>
-						        <li><a class="dropdown-item" href="/member/myPrevQuizList">푼 퀴즈</a></li>
-						  </ul>
-					   </li>
-				    </ul>
-				  </div>
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item"><a class="nav-link active" aria-current="true" href="/member/info">내 정보</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/member/passwd">비밀번호 변경</a></li>
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내 활동</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/member/myBoard">내 게시물</a></li>
+                                    <li><a class="dropdown-item" href="/member/myComment">내 댓글</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/member/myQuiz">만든 퀴즈</a></li>
+                                    <li><a class="dropdown-item" href="/member/mySolveHistory">푼 퀴즈</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
 				  
 				  <div class="card-body">
 				  <div>

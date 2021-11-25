@@ -59,6 +59,14 @@ main .badge {
 	margin-left: -0.5em;
 }
 
+table {
+	background: white;
+}
+
+tbody tr {
+	cursor: pointer;
+}
+
 .likey-box {
 	margin: auto 20.5em;
 	font-size: 1.6em;

@@ -136,7 +136,7 @@ public class MemberController {
 		return "member/removeMember";
 	} // removeForm
 
-	@GetMapping("/myboardList")
+	@GetMapping("/myBoard")
 	public String myboardlistpage(Criteria cri, Model model, HttpSession session) {
 		System.out.println("myboardlistpage 화면 호출됨...");
 
@@ -155,10 +155,10 @@ public class MemberController {
 		model.addAttribute("boardList", myBoardList);
 		model.addAttribute("pageMaker", pageDTO);
 
-		return "member/myboardList";
-	} // myboardlistpage
+		return "member/myBoard";
+	} // myBoard
 
-	@GetMapping("/myCommentList")
+	@GetMapping("/myComment")
 	public String myreplyListpage(Criteria cri, Model model, HttpSession session) {
 
 			System.out.println("======== /myComment ========");
@@ -177,10 +177,10 @@ public class MemberController {
 			model.addAttribute("commentList", myCommentList);
 			model.addAttribute("pageMaker", pageDTO);
 
-			return "member/myCommentList";
-	} // myboardlistpage
+			return "member/myComment";
+	} // myComment
 
-	@GetMapping("/myQuizList")
+	@GetMapping("/myQuiz")
 	public String myQuizListpage(Criteria cri, Model model, HttpSession session) {
 		System.out.println("myQuizListpage 화면 호출됨...");
 
@@ -200,12 +200,12 @@ public class MemberController {
 		model.addAttribute("myQuiz", myQuizList);
 		model.addAttribute("pageMaker", pageDTO);
 
-		return "member/myQuizList";
-	} // myQuizListpage
+		return "member/myQuiz";
+	} // myQuiz
 
-	@GetMapping("/myPrevQuizList")
+	@GetMapping("/mySolveHistory")
 	public String myPrevQuizListpage(Criteria cri, Model model, HttpSession session) {
-		System.out.println("myPrevQuizListpage 화면 호출됨...");
+		System.out.println("mySolveHistory 화면 호출됨...");
 
 		String id = (String) session.getAttribute("id");
 
@@ -222,8 +222,8 @@ public class MemberController {
 		model.addAttribute("quizCheck", myPrevQuizList);
 		model.addAttribute("pageMaker", pageDTO);
 
-		return "member/myPrevQuizList";
-	} // myquizCheckListpage
+		return "member/mySolveHistory";
+	} // mySolveHistory
 
 	/****************************** GetMapping End ******************************/
 

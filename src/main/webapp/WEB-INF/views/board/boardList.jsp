@@ -41,7 +41,7 @@
 						</h2>
 						<a href="#!" class="side"><i class="fas fa-edit"></i></a>
 					</div>
-					<table class="table table-hover">
+					<table class="table bg-white table-hover">
 						<thead class="table-dark">
 							<tr>
 								<th>번호</th>
@@ -51,16 +51,18 @@
 								<th>조회수</th>
 							</tr>
 						</thead>
-						<tbody style="background: white; cursor: pointer;">
+						<tbody>
 							<c:choose>
 								<c:when test="${ pageMaker.totalCount gt 0 }">
 									<c:forEach var="board" items="${ boardList }">
 										<tr onclick="location.href='/board/content?num=${ board.num }&pageNum=${ pageMaker.cri.pageNum }'">
 											<th scope="row">${ board.num }</th>
-											<td><c:if test="${ board.reLev gt 0 }">
+											<td>
+											    <c:if test="${ board.reLev gt 0 }">
 													<span class="reply-level" style="padding-left: ${ board.reLev * 15}px">⮡ </span>
 												</c:if>
-												${ board.subject }</td>
+												${ board.subject }
+												                   </td>
 											<td>${ board.memberId }</td>
 											<td><fmt:formatDate value="${ board.regDate }" pattern="yyyy.MM.dd" /></td>
 											<td>${ board.viewCount }</td>

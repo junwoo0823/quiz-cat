@@ -32,3 +32,11 @@
 #optional {
 	display: none;
 }
+
+table {
+    background: white;
+}
+
+tbody tr {
+    cursor: pointer;
+}
