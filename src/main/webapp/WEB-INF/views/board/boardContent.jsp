@@ -53,6 +53,23 @@
 							</div>
 							<hr>
 							<div>${ board.content }</div>
+							<div class="mt-4 text-center likey-row">
+	                            <div class="likey-box" onclick="clickBtnLikey()">
+	                                <div class="my-2 text-center">
+	                                   <span class="likey-icon">
+	                                    <c:choose>
+	                                        <c:when test="${ isRecommended eq true }">
+	                                            <i class="fas fa-laugh-beam"></i>
+	                                        </c:when>
+	                                        <c:otherwise>
+	                                            <i class="far fa-smile"></i> 
+	                                        </c:otherwise>
+	                                    </c:choose>
+	                                    </span>
+	                                    <span class="recCount">${ recCount }</span>
+	                                </div>
+	                            </div>
+	                        </div>
 							
 							<div id="dashedLine"></div>
 
@@ -309,6 +326,85 @@
         alert('삭제완료');
         
         location.href='/board/remove?num=${ board.num }&pageNum=${ pageNum }';
+    }
+    
+    // 추천 버튼 클릭 시
+    function clickBtnLikey(){
+        
+        var boardNum = '${ board.num }';
+        console.log('boardNum : ' + boardNum);
+        
+        var sessionId = '${ id }';
+        console.log('id : ' +sessionId);
+        
+        if(sessionId == '' || sessionId.length==0){
+            alert('로그인이 필요한 서비스 입니다.');
+        }
+        
+        var recBoardVO = {
+                'boardNum' : boardNum,
+                'memberId' : sessionId,
+        }
+        
+        console.log(recBoardVO);
+        
+        
+        $.ajax({
+            url: '/api/recBoard/' + boardNum,
+            method: 'GET',
+            success: function(data){
+                console.log(data);
+                console.log(typeof data);
+                console.log(data.recIdList);
+                console.log(data.count);
+                
+                var recIdList = data.recIdList;
+                
+                console.log('recIdList : ' + recIdList);
+                
+                var result = recIdList.indexOf(sessionId);
+                
+                console.log('result : ' + result);
+                
+                
+                if(recIdList.indexOf(sessionId) == -1){// id가 존재하지않음
+                    console.log('추가');
+                    $.ajax({
+                        url: '/api/addRecBoard',
+                        method: 'POST',
+                        data : JSON.stringify(recBoardVO),
+                        contentType: 'application/json',
+                        success: function (data){
+                            console.log(data);
+                            
+                            console.log($('.likey-icon'));
+                        
+                            $('.likey-icon')[0].innerHTML = '<i class="fas fa-laugh-beam"></i>';
+                            $('span.recCount')[0].innerText = data.recCount;
+                        }
+                    });
+                    
+                }else{ // id가 존재함
+                    console.log('제거');
+                    $.ajax({
+                        url: '/api/deleteRecBoard',
+                        method: 'DELETE',
+                        data : JSON.stringify(recBoardVO),
+                        contentType: 'application/json',
+                        success: function (data){
+                            console.log(data);
+                            
+                            $('.likey-icon')[0].innerHTML = '<i class="far fa-smile"></i>';
+                            $('span.recCount')[0].innerText = data.recCount;
+                        }
+                    });
+                    
+                }
+                
+                
+            }
+        });
+        
     }
     </script>
 

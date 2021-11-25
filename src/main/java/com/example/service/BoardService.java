@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.domain.AttachVO;
 import com.example.domain.BoardVO;
 import com.example.domain.Criteria;
+import com.example.domain.RecBoardVO;
 import com.example.mapper.AttachMapper;
 import com.example.mapper.BoardMapper;
 
@@ -85,6 +86,22 @@ public class BoardService {
 		boardMapper.updateBoardReSeq(boardVO);
 
 		addBoardAndAttaches(boardVO);
+	}
+	
+	public List<String> getRecIdListByBoardNum(int boardNum){
+		return boardMapper.getRecIdListByBoardNum(boardNum);
+	}
+	
+	public void insertRecBoard(RecBoardVO recBoardVO) {
+		boardMapper.insertRecBoard(recBoardVO);
+	}
+	
+	public void deleteRecBoard(RecBoardVO recBoardVO) {
+		boardMapper.deleteRecBoard(recBoardVO);
+	}
+	
+	public int getRecCountByBoardNum(int boardNum) {
+		return boardMapper.getRecCountByBoardNum(boardNum);
 	}
 
 }

@@ -125,11 +125,36 @@
 		</if>
 	</select>
 	
+	<select id="getRecIdListByBoardNum" resultType="String">
+	<![CDATA[
+		SELECT member_id
+		FROM rec_board
+		WHERE board_num = #{boardNum}
+	]]>
+	</select>
+	
+	<select id="getRecCountByBoardNum" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)
+		FROM rec_board
+		WHERE board_num = #{boardNum}
+	]]>
+	</select>
+	
+	
+	
 	<!-- =================== insert ====================== -->
 	<insert id="addBoard">
 	<![CDATA[
 		INSERT INTO board(num, board_type, member_id, subject, content, view_count, reg_date, re_ref, re_lev, re_seq)
 		VALUES (#{num}, #{boardType}, #{memberId}, #{subject}, #{content}, #{viewCount}, #{regDate}, #{reRef}, #{reLev}, #{reSeq})
+	]]>
+	</insert>
+	
+	<insert id="insertRecBoard">
+	<![CDATA[
+		INSERT INTO rec_board(board_num, member_id)
+		VALUES (#{boardNum}, #{memberId})
 	]]>
 	</insert>
 
@@ -165,6 +190,14 @@
 	<![CDATA[
 		DELETE FROM board
 		WHERE num = #{num}
+	]]>
+	</delete>
+	
+	<delete id="deleteRecBoard">
+	<![CDATA[
+		DELETE FROM rec_board
+		WHERE board_num = #{boardNum}
+		AND member_id = #{memberId}
 	]]>
 	</delete>
 

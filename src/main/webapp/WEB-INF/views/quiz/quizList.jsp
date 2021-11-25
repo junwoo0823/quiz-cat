@@ -56,16 +56,10 @@
 									<div class="col-md-4 single-note-item">
 										<div class="card card-body shadow-sm" onclick="location.href='/quiz/content?bunchNum=${ bunch.num }'">
 											<span class="side-stick"></span>
-											<h5 class="note-title text-truncate mb-0">${ bunch.title }</h5>
-											<p class="badge rounded-pill bg-dark mt-2">${ bunch.quizCount } 문제</p>
+											<h5 class="note-title text-truncate mt-2">${ bunch.title }</h5>
+											<p class="badge rounded-pill bg-dark mt-0">${ bunch.quizCount } 문제</p>
 											<div class="note-content">
 												<p class="note-inner-content text-muted">만든이 : ${ bunch.memberId }</p>
-											</div>
-											<div class="d-flex align-items-center">
-												<span class="mr-1"><i class="fa fa-star favourite-note text-warning"></i></span>&nbsp;
-												<c:if test="${ id eq bunch.memberId || id eq 'admin' }">
-					                                <span onclick="btnDelete()" id="btn-delete" class="mr-1"><i class="fa fa-trash remove-note text-secondary"></i></span>
-					                            </c:if>
 											</div>
 										</div>
 									</div>
@@ -99,7 +93,7 @@
 					</div>
 
 					<form action="/quiz/list" method="GET">
-						<div class="input-group mx-auto my-4" style="width: 30%">
+						<div class="input-group mx-auto mt-4" style="width: 30%">
 							<div class="input-group-prepend">
 								<select class="btn btn-dark px-2" name="type">
 									<option value="" disabled selected>선택</option>
@@ -127,17 +121,6 @@
 	<%---------- Footer Include ----------%>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	<%---------- Footer Include End ----------%>
-	
-	<script>
-     function btnDelete(){
-         var isDelete = confirm('정말 삭제하시겠습니까?');
-         
-         if(isDelete == true){
-             alert('삭제가 완료되었습니다.');
-             location.href='/quiz/delete?bunchNum=${ bunch.num }';
-         }
-     }
-    </script>
 
 </body>
 </html>

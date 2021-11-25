@@ -175,8 +175,18 @@ public class BoardController {
 	@GetMapping("/content")
 	public String content(int num, Model model,
 			@RequestParam(required = false, defaultValue = "1") String pageNum,
-			@RequestParam(required = false) String commentNum) {
+			@RequestParam(required = false) String commentNum, HttpSession session) {
 
+		List<String> recIdList = boardService.getRecIdListByBoardNum(num);
+		
+		System.out.println("recIdList: " +recIdList);
+		
+		String id = (String) session.getAttribute("id");
+		
+		boolean isRecommended = recIdList.contains(id);
+		
+		System.out.println("포함 여부 : " + isRecommended);
+		
 		boardService.updateViewCount(num);
 
 		System.out.println("num : " + num);
@@ -193,6 +203,8 @@ public class BoardController {
 		model.addAttribute("attachList", boardVO.getAttachList());
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("isRecommended", isRecommended);
+		model.addAttribute("recCount", recIdList.size());
 		if(commentNum != null) {
 			model.addAttribute("commentNum", commentNum);			
 		}
