@@ -40,28 +40,25 @@
 			<div class="container">
 				
 				<div class="card shadow-sm text-center px-0" style="margin: auto 20em">
+				
 				  <div class="card-header">
 				    <ul class="nav nav-tabs card-header-tabs">
-				      <li class="nav-item">
-				        <a class="nav-link active" aria-current="true" href="#">내 정보</a>
-				      </li>
-				      <li class="nav-item">
-				        <a class="nav-link" href="#">비밀번호 변경</a>
-				      </li>
+				      <li class="nav-item"><a class="nav-link active" aria-current="true" href="/member/info">내 정보</a></li>
+				      <li class="nav-item"><a class="nav-link" href="/member/passwd">비밀번호 변경</a></li>
 					   <li class="nav-item dropdown">
 						    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">내 활동</a>
 						    <ul class="dropdown-menu">
-						        <li><a class="dropdown-item" href="#">내 게시물</a></li>
-						        <li><a class="dropdown-item" href="#">내 댓글</a></li>
+						        <li><a class="dropdown-item" href="/member/myboardList">내 게시물</a></li>
+						        <li><a class="dropdown-item" href="/member/myCommentList">내 댓글</a></li>
 						        <li><hr class="dropdown-divider"></li>
-						        <li><a class="dropdown-item" href="#">만든 퀴즈</a></li>
-						        <li><a class="dropdown-item" href="#">푼 퀴즈</a></li>
+						        <li><a class="dropdown-item" href="/member/myQuizList">만든 퀴즈</a></li>
+						        <li><a class="dropdown-item" href="/member/myPrevQuizList">푼 퀴즈</a></li>
 						  </ul>
 					   </li>
 				    </ul>
 				  </div>
-				  <div class="card-body">
 				  
+				  <div class="card-body">
 				  <div>
 					  <div>
 					    <div class="card">
@@ -115,9 +112,9 @@
 					      </div>
 					    </div>
 					  </div>
-					  <a href="#!" class="btn btn-outline-dark">정보 수정</a>
-					  <a href="#!" class="btn btn-outline-secondary">회원 탈퇴</a>
-					  <a href="#!" class="btn btn-outline-danger">로그아웃</a>
+					  <a href="/member/modify" class="btn btn-outline-dark">정보 수정</a>
+					  <a href="/member/remove" class="btn btn-outline-secondary">회원 탈퇴</a>
+					  <a href="#" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">로그아웃</a>
 					</div>
 				  
 				  </div>
@@ -129,6 +126,25 @@
 
 	</main>
 	<%---------- Main End ----------%>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Logout</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          정말 로그아웃을 하시겠습니까?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary"  onclick="location.href='/member/logout'">예</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 	<%---------- Footer Include ----------%>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp" />

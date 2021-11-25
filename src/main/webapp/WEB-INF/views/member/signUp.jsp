@@ -67,7 +67,7 @@
 
 									<div class="form-group input-group-sm">
 										<label for="multipartFile">프로필 사진</label>
-										<input type="file" class="form-control" id="formFileSm" name="multipartFile" aria-label="Upload">
+										<input type="file" class="form-control" id="formFileSm" name="multipartFile" aria-label="Upload" required>
 									</div>
 
 									<div class="text-center">
