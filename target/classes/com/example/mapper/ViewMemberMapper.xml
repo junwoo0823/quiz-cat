@@ -77,9 +77,6 @@
 	</collection>
 </resultMap>
 
-<!-- =================================================================여기까지 내가 쓴 게시글 -->
-<!-- =======================================여기부터 내가 쓴 댓글 -->
-
 <select id="getCommentCountSearchingforMemberId" resultType="int">
 	<![CDATA[
 		SELECT COUNT(*) AS cnt 
@@ -113,7 +110,5 @@
 		LIMIT #{cri.startRow}, #{cri.amount} 
 	]]>
 </select>
-
-	
 	
 </mapper>

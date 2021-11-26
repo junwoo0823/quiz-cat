@@ -39,7 +39,7 @@
 						<h2 id="title">
 							<strong>자유 게시판</strong>
 						</h2>
-						<a href="#!" class="side"><i class="fas fa-edit"></i></a>
+						<a href="/board/write?pageNum=${ pageMaker.cri.pageNum }" class="side"><i class="fas fa-pencil-alt"></i></a>
 					</div>
 					<table class="table bg-white table-hover">
 						<thead class="table-dark">
@@ -59,7 +59,7 @@
 											<th scope="row">${ board.num }</th>
 											<td>
 											    <c:if test="${ board.reLev gt 0 }">
-													<span class="reply-level" style="padding-left: ${ board.reLev * 15}px">⮡ </span>
+													<span class="reply-level" style="padding-left: ${ board.reLev * 15}px">⮡&nbsp;</span>
 												</c:if>
 												${ board.subject }
 												                   </td>
@@ -104,20 +104,14 @@
 
 					<form action="/board/list" method="GET">
 						<div class="input-group mx-auto my-4" style="width: 30%">
-							<div class="input-group-prepend">
-								<select class="btn btn-dark px-2" name="type">
-									<option value="" disabled selected>선택</option>
-									<option value="subject" ${ pageMaker.cri.type eq 'subject' ? 'selected' : '' }>제목</option>
-									<option value="content" ${ pageMaker.cri.type eq 'content' ? 'selected' : '' }>내용</option>
-									<option value="memberId" ${ pageMaker.cri.type eq 'memberId' ? 'selected' : '' }>작성자</option>
-								</select>
-							</div>
-							<div class="input-group-append">
-								<input type="text" class="form-control" name="keyword" value="${ pageMaker.cri.keyword }">
-							</div>
-							<div class="input-group-append">
-								<button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
-							</div>
+							<select class="btn btn-dark px-2" name="type">
+								<option value="" disabled selected>선택</option>
+								<option value="subject" ${ pageMaker.cri.type eq 'subject' ? 'selected' : '' }>제목</option>
+								<option value="content" ${ pageMaker.cri.type eq 'content' ? 'selected' : '' }>내용</option>
+								<option value="memberId" ${ pageMaker.cri.type eq 'memberId' ? 'selected' : '' }>작성자</option>
+							</select>
+							<input type="text" class="form-control" name="keyword" value="${ pageMaker.cri.keyword }">
+							<button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
 						</div>
 					</form>
 

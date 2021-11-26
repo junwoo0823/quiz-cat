@@ -40,6 +40,10 @@
 							<strong>자유 게시판</strong>
 						</h2>
 						<a href="/board/list?pageNum=${ pageNum }" id="btn-back" class="side"><i class="fas fa-backward"></i></a>
+                        <c:if test="${ id eq board.memberId || id eq 'admin' }">
+                            <a href="/board/modify?num=${ board.num }&pageNum=${ pageNum }" id="btn-modify" class="side"><i class="fas fa-edit"></i></a>
+                            <a onclick="deleteBoard()" id="btn-delete" class="side"><i class="fas fa-trash"></i></a>
+                       </c:if>
 					</div>
 					<div class="card">
 						<div class="text-dark mx-auto mt-4" style="width: 98%">
@@ -71,13 +75,16 @@
 	                            </div>
 	                        </div>
 							
-							<div id="dashedLine"></div>
-
+							<hr>
+							
 							<div>
 							
-								<span class="comment-count">댓글 ${ fn:length(commentList) }개</span>
+							    <ul class="list" style="margin-left: -35px;">
+                                    <li><span class="comment-count">댓글 ${ fn:length(commentList) }개</span>&nbsp;</li>
+                                    <li>&nbsp;<a href="/board/reply?num=${ board.num }&pageNum=${ pageNum }" class="btn btn-dark">답글</a></li>
+                                </ul>
 								
-								<hr>
+								<div id="dashedLine"></div>
 
 								<div>
 									<div class="row comment-line">
@@ -90,7 +97,7 @@
 														<div class="row" style="padding-left: ${ comment.reLev * 20 }px;">
 															<div class="col-md-6 mx-2 speech-bubble text-white">
 																<c:if test="${ comment.reLev gt 0 }">
-																	<span>&nbsp;<i class="fas fa-level-down-alt"></i>&nbsp;</span>
+																	<span>&nbsp;⮡&nbsp;</span>
 																</c:if>
 																ID : ${ comment.memberId }
 															</div>
@@ -106,7 +113,7 @@
 														</div>
 														<div class="commentModify-form" style="display: none; padding-left: ${ comment.reLev * 20 }px;">
 															<div class="col-md-12 comment-write-title">
-																<span>└&nbsp;</span>댓글 수정
+																<span>⮡&nbsp;</span>댓글 수정
 															</div>
 															<form class="modifyComment-form">
 																<div class="form-floating mb-3">
@@ -122,7 +129,7 @@
 														</div>
 														<div class="commentReply-form" style="display: none; padding-left: ${ comment.reLev * 20 }px;">
 															<div class="col-md-12 comment-write-title">
-																<span>└&nbsp;</span>답글 쓰기
+																<span>⮡&nbsp;</span>답글 쓰기
 															</div>
 															<form class="replyComment-form">
 																<div class="form-floating mb-3">

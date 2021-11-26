@@ -51,6 +51,18 @@ main {
 	min-height: 850px;
 }
 
+main #btn-back {
+    right: 0;
+}
+
+main #btn-modify {
+    right: 45px;
+}
+
+main #btn-delete {
+    right: 100px;
+}
+
 /*-- Navigation Menu --*/
 
 nav {

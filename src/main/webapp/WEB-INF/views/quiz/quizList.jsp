@@ -94,19 +94,13 @@
 
 					<form action="/quiz/list" method="GET">
 						<div class="input-group mx-auto mt-4" style="width: 30%">
-							<div class="input-group-prepend">
-								<select class="btn btn-dark px-2" name="type">
-									<option value="" disabled selected>선택</option>
-									<option value="title" ${ pageMaker.cri.type eq 'title' ? 'selected' : '' }>제목</option>
-									<option value="memberId" ${ pageMaker.cri.type eq 'memberId' ? 'selected' : '' }>작성자</option>
-								</select>
-							</div>
-							<div class="input-group-append">
-								<input type="text" class="form-control" name="keyword" value="${ pageMaker.cri.keyword }">
-							</div>
-							<div class="input-group-append">
-								<button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
-							</div>
+							<select class="btn btn-dark px-2" name="type">
+								<option value="" disabled selected>선택</option>
+								<option value="title" ${ pageMaker.cri.type eq 'title' ? 'selected' : '' }>제목</option>
+								<option value="memberId" ${ pageMaker.cri.type eq 'memberId' ? 'selected' : '' }>작성자</option>
+							</select>
+							<input type="text" class="form-control" name="keyword" value="${ pageMaker.cri.keyword }">
+							<button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
 						</div>
 					</form>
 
