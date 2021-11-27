@@ -28,9 +28,9 @@
 
 	<%---------- Main ----------%>
 	<main class="memberPage">
-
 		<form action="/member/signUp" class="my-login-validation" method="POST" enctype="multipart/form-data">
 
+            <%---------- Section ----------%>
 			<section>
 				<div class="container">
 					<div class="row justify-content-md-center">
@@ -45,13 +45,11 @@
 									<div class="form-group input-group-sm">
 										<label for="id">아이디</label>
 										<input id="id" type="text" class="form-control" name="id" required autofocus>
-										<div class="invalid-feedback">What's your id?</div>
 									</div>
 
 									<div class="form-group input-group-sm">
 										<label for="passwd">비밀번호</label>
 										<input id="passwd" type="password" class="form-control" name="passwd" required>
-										<div class="invalid-feedback">Password is Password?</div>
 									</div>
 
 									<div class="form-group input-group-sm">
@@ -62,7 +60,6 @@
 									<div class="form-group input-group-sm">
 										<label for="birthday">생년월일</label>
 										<input id="birthday" type="date" class="form-control" name="birthday" required>
-										<div class="invalid-feedback">What's your birthday?</div>
 									</div>
 
 									<div class="form-group input-group-sm">
@@ -126,9 +123,9 @@
 					</div>
 				</div>
 			</section>
+			<%---------- Section End ----------%>
 
 		</form>
-
 	</main>
 	<%---------- Main End ----------%>
 
@@ -141,7 +138,14 @@
 			$('#optional').show();
 			$('#optionalBtn').hide();
 		}
-	</script>
+		
+		$('input#id').on('keyup', function(event) {
+			if (!(event.keyCode >= 37 && event.keyCode <= 40)) {
+			    var id = $(this).val();
+			    $(this).val(id.replace(/[^a-z0-9]/gi, ''));
+			}
+		});
+    </script>
 
 </body>
 </html>

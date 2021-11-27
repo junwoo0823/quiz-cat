@@ -24,12 +24,14 @@ import com.example.service.CommentService;
 @RequestMapping("/api/*")
 public class CommentRestController {
 
+	
 	private CommentService commentService;
 
 	public CommentRestController(CommentService commentService) {
 		super();
 		this.commentService = commentService;
 	}
+	
 
 	@GetMapping(value = "/comment/{boardNum}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
@@ -114,6 +116,4 @@ public class CommentRestController {
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	} // deleteComment
 	
-	
-
 }

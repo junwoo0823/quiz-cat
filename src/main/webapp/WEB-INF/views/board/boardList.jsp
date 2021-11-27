@@ -39,8 +39,11 @@
 						<h2 id="title">
 							<strong>자유 게시판</strong>
 						</h2>
-						<a href="/board/write?pageNum=${ pageMaker.cri.pageNum }" class="side"><i class="fas fa-pencil-alt"></i></a>
+						<c:if test="${ not empty id }">
+						    <a href="/board/write?pageNum=${ pageMaker.cri.pageNum }" class="side"><i class="fas fa-pencil-alt"></i></a>
+						</c:if>
 					</div>
+					
 					<table class="table bg-white table-hover">
 						<thead class="table-dark">
 							<tr>
@@ -79,7 +82,7 @@
 					</table>
 
 					<div>
-						<ul class="pagination justify-content-center mt-3">
+						<ul class="pagination justify-content-center">
 							<c:if test="${ pageMaker.prev eq true }">
 								<li class="page-item">
 									<a class="page-link" href="/board/list?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }" aria-label="Previous">
@@ -103,7 +106,7 @@
 					</div>
 
 					<form action="/board/list" method="GET">
-						<div class="input-group mx-auto my-4" style="width: 30%">
+						<div class="input-group mx-auto" style="width: 30%">
 							<select class="btn btn-dark px-2" name="type">
 								<option value="" disabled selected>선택</option>
 								<option value="subject" ${ pageMaker.cri.type eq 'subject' ? 'selected' : '' }>제목</option>

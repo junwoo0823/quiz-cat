@@ -19,8 +19,10 @@ import com.example.service.QuizService;
 @RequestMapping("/api/*")
 public class BunchRestController {
 	
+	
 	@Autowired
 	private QuizService quizService;
+	
 	
 	@GetMapping(value = "/bunches", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<List<BunchVO>> getAll() {
@@ -31,7 +33,5 @@ public class BunchRestController {
 		
 		return new ResponseEntity<List<BunchVO>>(bunchList, HttpStatus.OK);
 	} // getAll
-	
-	
 	
 }

@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.BoardVO;
 import com.example.domain.CommentVO;
@@ -12,7 +13,8 @@ import com.example.mapper.BoardMapper;
 import com.example.mapper.CommentMapper;
 import com.example.mapper.MemberMapper;
 
-@Service // @Component 계열 애노테이션. 트랜잭션 처리 기능 가짐
+@Service
+@Transactional
 public class MemberService {
 
 	private MemberMapper memberMapper;

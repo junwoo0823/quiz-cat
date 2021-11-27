@@ -29,7 +29,7 @@
 	<%---------- Login Modal Include End ----------%>
 
 	<%---------- Main ----------%>
-	<main>
+	<main class="m-0">
 
 		<%---------- Hero Section ----------%>
 		<section class="hero">
@@ -69,7 +69,7 @@
 					</div>
 
 					<div>
-						<ul class="pagination justify-content-center mt-3">
+						<ul class="pagination justify-content-center">
 							<c:if test="${ pageMaker.prev eq true }">
 								<li class="page-item">
 									<a class="page-link" href="/quiz/list?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }" aria-label="Previous">
@@ -93,7 +93,7 @@
 					</div>
 
 					<form action="/quiz/list" method="GET">
-						<div class="input-group mx-auto mt-4" style="width: 30%">
+						<div class="input-group mx-auto" style="width: 30%">
 							<select class="btn btn-dark px-2" name="type">
 								<option value="" disabled selected>선택</option>
 								<option value="title" ${ pageMaker.cri.type eq 'title' ? 'selected' : '' }>제목</option>

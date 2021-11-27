@@ -7,7 +7,7 @@
 			<div class="col-12">
 				<div class="footer-credits text-center py-3 py-lg-4">
 					<p class="mb-0">
-						&copy; 2021 <a href="#">QUIZ</a> All Rights Reserved.
+						&copy; 2021 <a href="#">QUIZCAT</a>
 					</p>
 				</div>
 			</div>

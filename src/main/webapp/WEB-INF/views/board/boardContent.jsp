@@ -80,8 +80,10 @@
 							<div>
 							
 							    <ul class="list" style="margin-left: -35px;">
-                                    <li><span class="comment-count">댓글 ${ fn:length(commentList) }개</span>&nbsp;</li>
-                                    <li>&nbsp;<a href="/board/reply?num=${ board.num }&pageNum=${ pageNum }" class="btn btn-dark">답글</a></li>
+                                        <li><span class="comment-count">댓글 ${ fn:length(commentList) }개</span>&nbsp;</li>
+                                    <c:if test="${ not empty id }">
+                                        <li>&nbsp;<a href="/board/reply?num=${ board.num }&pageNum=${ pageNum }" class="btn btn-dark">답글</a></li>
+                                    </c:if>
                                 </ul>
 								
 								<div id="dashedLine"></div>
@@ -103,13 +105,15 @@
 															</div>
 															<div class="col-12 my-2">
 																<i class="fas fa-angle-right mx-1"></i>${ comment.content }</div>
-															<div class="mb-3">
-																<div class="badge bg-dark comment-option btn-commentReply">답글</div>
-																<c:if test="${ comment.memberId eq id }">
-																	<div class="badge bg-secondary comment-option btn-commentModify">수정</div>
-																	<div class="badge bg-danger comment-option btn-commentDelete">삭제</div>
-																</c:if>
-															</div>
+														    <c:if test="${ not empty id }">
+																<div class="mb-3">
+																	<div class="badge bg-dark comment-option btn-commentReply">답글</div>
+																	<c:if test="${ comment.memberId eq id || id eq 'admin' }">
+																		<div class="badge bg-secondary comment-option btn-commentModify">수정</div>
+																		<div class="badge bg-danger comment-option btn-commentDelete">삭제</div>
+																	</c:if>
+																</div>
+															</c:if>
 														</div>
 														<div class="commentModify-form" style="display: none; padding-left: ${ comment.reLev * 20 }px;">
 															<div class="col-md-12 comment-write-title">
@@ -122,7 +126,7 @@
 																</div>
 															</form>
 															<div class="row div-right">
-																<c:if test="${ comment.memberId eq id }">
+																<c:if test="${ comment.memberId eq id || id eq 'admin' }">
 																	<div class="badge bg-dark btn-modifyComment btn-comment">확인</div>
 																</c:if>
 															</div>
@@ -158,19 +162,21 @@
 									</div>
 								</div>
 
-								<form class="newComment-form my-2">
-									<div class="form-floating">
-										<input type="hidden" name="boardNum" value="${ board.num }" />
-										<input type="hidden" name="memberId" value="${ id }" />
-										<textarea id="comment-content" name="content" class="form-control" style="height: 7rem"></textarea>
-										<label for="comment-content">댓글 입력</label>
+                                <c:if test="${ not empty id }">
+									<form class="newComment-form my-2">
+										<div class="form-floating">
+											<input type="hidden" name="boardNum" value="${ board.num }" />
+											<input type="hidden" name="memberId" value="${ id }" />
+											<textarea id="comment-content" name="content" class="form-control" style="height: 7rem"></textarea>
+											<label for="comment-content">댓글 입력</label>
+										</div>
+									</form>
+	
+									<div class="mb-3">
+										<button type="button" class="btn btn-dark btn-newComment">확인</button>
+										<button type="reset" class="btn btn-secondary">취소</button>
 									</div>
-								</form>
-
-								<div class="mb-3">
-									<button type="button" class="btn btn-dark btn-newComment">확인</button>
-									<button type="reset" class="btn btn-secondary">취소</button>
-								</div>
+								</c:if>
 
 							</div>
 
@@ -346,6 +352,7 @@
         
         if(sessionId == '' || sessionId.length==0){
             alert('로그인이 필요한 서비스 입니다.');
+            return false;
         }
         
         var recBoardVO = {
@@ -375,7 +382,6 @@
                 
                 
                 if(recIdList.indexOf(sessionId) == -1){// id가 존재하지않음
-                    console.log('추가');
                     $.ajax({
                         url: '/api/addRecBoard',
                         method: 'POST',
@@ -392,7 +398,6 @@
                     });
                     
                 }else{ // id가 존재함
-                    console.log('제거');
                     $.ajax({
                         url: '/api/deleteRecBoard',
                         method: 'DELETE',

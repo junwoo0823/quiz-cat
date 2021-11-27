@@ -12,13 +12,10 @@ public interface ProfileMapper {
 	@Select("SELECT * FROM profile_img WHERE member_id=#{id}")
 	ProfileImg getProfileImg(String id);
 
-	@Insert("INSERT INTO profile_img (uuid, uploadpath, filename, member_id) "
-			+ "VALUES (#{uuid},#{uploadpath},#{filename},#{memberId}) ")
+	@Insert("INSERT INTO profile_img (uuid, uploadpath, filename, member_id) VALUES (#{uuid},#{uploadpath},#{filename},#{memberId}) ")
 	void insertProfileImg(ProfileImg profileImg);
 
-	@Update("UPDATE profile_img "
-			+ "SET uuid=#{uuid}, uploadpath=#{uploadpath}, filename=#{filename} "
-			+ "WHERE member_id = #{memberId} ")
+	@Update("UPDATE profile_img SET uuid=#{uuid}, uploadpath=#{uploadpath}, filename=#{filename} WHERE member_id = #{memberId} ")
 	void updateProfileImg(ProfileImg profileImg);
 
 	@Delete("DELETE FROM profile_img WHERE member_id = #{id} ")

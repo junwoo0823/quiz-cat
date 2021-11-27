@@ -22,16 +22,16 @@ public interface BoardMapper {
 	BoardVO getBoardAndAttachesByNum(int num);
 
 	List<BoardVO> getMyBoardListByCri(@Param("cri") Criteria cri, @Param("id") String id);
-	
+
 	int getMyAllBoardsCount(@Param("cri") Criteria cri, @Param("id") String id);
-	
+
 	List<String> getRecIdListByBoardNum(int boardNum);
-	
+
 	int getRecCountByBoardNum(int boardNum);
 
 	// =================== insert ======================
 	void addBoard(BoardVO boardVO);
-	
+
 	void insertRecBoard(RecBoardVO recBoardVO);
 
 	// =================== update ======================
@@ -44,7 +44,7 @@ public interface BoardMapper {
 	// =================== delete ======================
 
 	void deleteBoardByNum(int num);
-	
-	void deleteRecBoard(RecBoardVO recBoardVO);
 
+	void deleteRecBoard(RecBoardVO recBoardVO);
+	
 }

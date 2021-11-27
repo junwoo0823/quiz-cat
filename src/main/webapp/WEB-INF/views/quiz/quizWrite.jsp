@@ -29,7 +29,7 @@
 	<%---------- Login Modal Include End ----------%>
 
 	<%---------- Main ----------%>
-	<main>
+	<main class="m-0">
 		<form action="/quiz/write" method="POST">
 
 			<%---------- Hero Section ----------%>

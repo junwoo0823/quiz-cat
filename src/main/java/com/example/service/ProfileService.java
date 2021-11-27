@@ -2,11 +2,13 @@ package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.ProfileImg;
 import com.example.mapper.ProfileMapper;
 
 @Service
+@Transactional
 public class ProfileService {
 
 	@Autowired

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +35,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
+	
 
 	private BoardService boardService;
 	private CommentService commentService;
@@ -49,6 +49,9 @@ public class BoardController {
 		this.commentService = commentService;
 		this.attachService = attachService;
 	}
+
+	
+	/****************************** GetMapping ******************************/
 
 	@GetMapping("/list")
 	public String list(Criteria cri, Model model) {
@@ -72,6 +75,173 @@ public class BoardController {
 		return "board/boardWrite";
 	} // writeForm
 
+	@GetMapping("/content")
+	public String content(int num, Model model, @RequestParam(required = false, defaultValue = "1") String pageNum,
+			@RequestParam(required = false) String commentNum, HttpSession session) {
+
+		List<String> recIdList = boardService.getRecIdListByBoardNum(num);
+
+		System.out.println("recIdList: " + recIdList);
+
+		String id = (String) session.getAttribute("id");
+
+		boolean isRecommended = recIdList.contains(id);
+
+		System.out.println("포함 여부 : " + isRecommended);
+
+		boardService.updateViewCount(num);
+
+		System.out.println("num : " + num);
+
+		BoardVO boardVO = boardService.getBoardAndAttachesByNum(num);
+
+		System.out.println("boardVO : " + boardVO);
+
+		List<CommentVO> commentList = commentService.getCommentsByBoardNum(num);
+
+		System.out.println("commentList : " + commentList);
+
+		model.addAttribute("board", boardVO);
+		model.addAttribute("attachList", boardVO.getAttachList());
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("isRecommended", isRecommended);
+		model.addAttribute("recCount", recIdList.size());
+		if (commentNum != null) {
+			model.addAttribute("commentNum", commentNum);
+		}
+
+		return "board/boardContent";
+	}
+
+	@GetMapping("/modify")
+	public String modifyForm(int num, @RequestParam(required = false, defaultValue = "1") String pageNum, Model model) {
+
+		BoardVO boardVO = boardService.getBoardAndAttachesByNum(num);
+
+		model.addAttribute("board", boardVO);
+		model.addAttribute("attachList", boardVO.getAttachList());
+		model.addAttribute("pageNum", pageNum);
+
+		return "board/boardModify";
+
+	} // modifyForm
+
+	@GetMapping("/remove")
+	public String deleteBoard(int num, String pageNum) {
+
+		System.out.println("num : " + num);
+		System.out.println("pageNum : " + pageNum);
+
+		List<AttachVO> attachList = attachService.getAttachesByBoardNum(num);
+
+		deleteAttachFiles(attachList);
+
+		boardService.deleteBoardAndAttachesByBoardNum(num);
+
+		return "redirect:/board/list?pageNum=" + pageNum;
+	}
+
+	@GetMapping("/reply")
+	public String replyForm(int num, @ModelAttribute("pageNum") String pageNum, Model model) {
+
+		model.addAttribute("num", num);
+
+		return "board/boardReply";
+	}
+
+	/****************************** GetMapping End ******************************/
+
+	
+	/****************************** PostMapping ******************************/
+
+	@PostMapping("/write")
+	public String write(List<MultipartFile> files, BoardVO boardVO, HttpSession session, RedirectAttributes rttr)
+			throws IllegalStateException, IOException {
+
+		int num = boardService.getNextNum();
+
+		List<AttachVO> attachList = uploadFilesAndGetAttachList(files, num);
+
+		String id = (String) session.getAttribute("id");
+
+		boardVO.setNum(num);
+		boardVO.setMemberId(id);
+		boardVO.setViewCount(0);
+		boardVO.setRegDate(new Date());
+		boardVO.setReRef(num);
+		boardVO.setReLev(0);
+		boardVO.setReSeq(0);
+		boardVO.setAttachList(attachList);
+
+		boardService.addBoardAndAttaches(boardVO);
+
+		rttr.addAttribute("num", boardVO.getNum());
+		rttr.addAttribute("pageNum", 1);
+
+		return "redirect:/board/content";
+	} // write
+
+	@PostMapping("/modify")
+	public String modify(BoardVO boardVO, String pageNum, List<MultipartFile> files,
+			@RequestParam(name = "delFile", required = false) List<String> delUuidList, RedirectAttributes rttr)
+			throws IllegalStateException, IOException {
+		System.out.println("boardVO : " + boardVO);
+
+		// 신규 첨부파일 업로드, 리스트 가져오기
+		List<AttachVO> newAttachList = uploadFilesAndGetAttachList(files, boardVO.getNum());
+
+		// 삭제할 첨부파일 폴더에서 삭제하기
+		List<AttachVO> delAttachList = null;
+		if (delUuidList != null && delUuidList.size() > 0) {
+			delAttachList = attachService.getAttachesByUuid(delUuidList);
+
+			deleteAttachFiles(delAttachList);
+		}
+
+		// DB테이블 작업. 게시글 수정, 첨부파일 추가, 삭제
+		boardService.updateBoardsAndInsertAttachesAndDeleteAttaches(boardVO, newAttachList, delUuidList);
+
+		rttr.addAttribute("num", boardVO.getNum());
+		rttr.addAttribute("pageNum", pageNum);
+
+		return "redirect:/board/content";
+	} // modify
+
+	@PostMapping("/reply")
+	public String reply(List<MultipartFile> files, int boardNum, String pageNum, BoardVO boardVO, HttpSession session, RedirectAttributes rttr)
+			throws IllegalStateException, IOException {
+		System.out.println("boardVO : " + boardVO);
+
+		BoardVO targetBoardVO = boardService.getBoardByNum(boardNum);
+
+		System.out.println("targetBoardVO : " + targetBoardVO);
+
+		int nextNum = boardService.getNextNum();
+
+		List<AttachVO> attachList = uploadFilesAndGetAttachList(files, nextNum);
+
+		String id = (String) session.getAttribute("id");
+		boardVO.setNum(nextNum);
+		boardVO.setMemberId(id);
+		boardVO.setRegDate(new Date());
+		boardVO.setReRef(targetBoardVO.getReRef());
+		boardVO.setReLev(targetBoardVO.getReLev() + 1);
+		boardVO.setReSeq(targetBoardVO.getReSeq() + 1);
+		boardVO.setAttachList(attachList);
+
+		System.out.println("수정후 boardVO : " + boardVO);
+
+		boardService.replyBoard(boardVO);
+
+		return "redirect:/board/content?num=" + boardVO.getNum() + "&pageNum=" + pageNum;
+	}
+
+	/****************************** PostMapping End ******************************/
+	
+
+	/****************************** Method ******************************/
+
 	// "년/월/일' 형식의 폴더명을 리턴하는 메소드
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -92,8 +262,7 @@ public class BoardController {
 		return isImage;
 	} // checkImageType
 
-	private List<AttachVO> uploadFilesAndGetAttachList(List<MultipartFile> files, int boardNum)
-			throws IllegalStateException, IOException {
+	private List<AttachVO> uploadFilesAndGetAttachList(List<MultipartFile> files, int boardNum) throws IllegalStateException, IOException {
 
 		List<AttachVO> attachList = new ArrayList<AttachVO>();
 
@@ -145,87 +314,6 @@ public class BoardController {
 		return attachList;
 	} // uploadFilesAndGetAttachList
 
-	@PostMapping("/write")
-	public String write(List<MultipartFile> files, BoardVO boardVO, HttpSession session, RedirectAttributes rttr)
-			throws IllegalStateException, IOException {
-
-		int num = boardService.getNextNum();
-
-		List<AttachVO> attachList = uploadFilesAndGetAttachList(files, num);
-
-		String id = (String) session.getAttribute("id");
-
-		boardVO.setNum(num);
-		boardVO.setMemberId(id);
-		boardVO.setViewCount(0);
-		boardVO.setRegDate(new Date());
-		boardVO.setReRef(num);
-		boardVO.setReLev(0);
-		boardVO.setReSeq(0);
-		boardVO.setAttachList(attachList);
-
-		boardService.addBoardAndAttaches(boardVO);
-
-		rttr.addAttribute("num", boardVO.getNum());
-		rttr.addAttribute("pageNum", 1);
-
-		return "redirect:/board/content";
-	} // write
-
-	@GetMapping("/content")
-	public String content(int num, Model model,
-			@RequestParam(required = false, defaultValue = "1") String pageNum,
-			@RequestParam(required = false) String commentNum, HttpSession session) {
-
-		List<String> recIdList = boardService.getRecIdListByBoardNum(num);
-		
-		System.out.println("recIdList: " +recIdList);
-		
-		String id = (String) session.getAttribute("id");
-		
-		boolean isRecommended = recIdList.contains(id);
-		
-		System.out.println("포함 여부 : " + isRecommended);
-		
-		boardService.updateViewCount(num);
-
-		System.out.println("num : " + num);
-
-		BoardVO boardVO = boardService.getBoardAndAttachesByNum(num);
-
-		System.out.println("boardVO : " + boardVO);
-
-		List<CommentVO> commentList = commentService.getCommentsByBoardNum(num);
-
-		System.out.println("commentList : " + commentList);
-
-		model.addAttribute("board", boardVO);
-		model.addAttribute("attachList", boardVO.getAttachList());
-		model.addAttribute("commentList", commentList);
-		model.addAttribute("pageNum",pageNum);
-		model.addAttribute("isRecommended", isRecommended);
-		model.addAttribute("recCount", recIdList.size());
-		if(commentNum != null) {
-			model.addAttribute("commentNum", commentNum);			
-		}
-
-		return "board/boardContent";
-	}
-
-	@GetMapping("/modify")
-	public String modifyForm(int num,
-			@RequestParam(required = false, defaultValue = "1") String pageNum, Model model) {
-
-		BoardVO boardVO = boardService.getBoardAndAttachesByNum(num);
-
-		model.addAttribute("board", boardVO);
-		model.addAttribute("attachList", boardVO.getAttachList());
-		model.addAttribute("pageNum",pageNum);
-
-		return "board/boardModify";
-
-	} // modifyForm
-
 	// 첨부파일 삭제하는 메소드
 	private void deleteAttachFiles(List<AttachVO> attachList) {
 
@@ -254,84 +342,6 @@ public class BoardController {
 
 	} // deleteAttachFiles
 
-	@PostMapping("/modify")
-	public String modify(BoardVO boardVO, String pageNum, List<MultipartFile> files,
-			@RequestParam(name = "delFile", required = false) List<String> delUuidList, RedirectAttributes rttr)
-			throws IllegalStateException, IOException {
-
-		System.out.println("======== post modify ========");
-		System.out.println("boardVO : " + boardVO);
-
-		// 신규 첨부파일 업로드, 리스트 가져오기
-		List<AttachVO> newAttachList = uploadFilesAndGetAttachList(files, boardVO.getNum());
-
-		// 삭제할 첨부파일 폴더에서 삭제하기
-		List<AttachVO> delAttachList = null;
-		if (delUuidList != null && delUuidList.size() > 0) {
-			delAttachList = attachService.getAttachesByUuid(delUuidList);
-
-			deleteAttachFiles(delAttachList);
-		}
-
-		// DB테이블 작업. 게시글 수정, 첨부파일 추가, 삭제
-		boardService.updateBoardsAndInsertAttachesAndDeleteAttaches(boardVO, newAttachList, delUuidList);
-
-		rttr.addAttribute("num", boardVO.getNum());
-		rttr.addAttribute("pageNum", pageNum);
-
-		return "redirect:/board/content";
-	} // modify
-
-	@GetMapping("/remove")
-	public String deleteBoard(int num, String pageNum) {
-
-		System.out.println("num : " + num);
-		System.out.println("pageNum : " + pageNum);
-
-		List<AttachVO> attachList = attachService.getAttachesByBoardNum(num);
-
-		deleteAttachFiles(attachList);
-
-		boardService.deleteBoardAndAttachesByBoardNum(num);
-
-		return "redirect:/board/list?pageNum=" + pageNum;
-	}
-
-	@GetMapping("/reply")
-	public String replyForm(int num, @ModelAttribute("pageNum") String pageNum, Model model) {
-
-		model.addAttribute("num", num);
-
-		return "board/boardReply";
-	}
-
-	@PostMapping("/reply")
-	public String reply(List<MultipartFile> files, int boardNum, String pageNum,
-			BoardVO boardVO, HttpSession session, RedirectAttributes rttr) throws IllegalStateException, IOException {
-		System.out.println("===========/reply==========");
-		System.out.println("boardVO : " + boardVO);
-
-		BoardVO targetBoardVO = boardService.getBoardByNum(boardNum);
-
-		System.out.println("targetBoardVO : " + targetBoardVO);
-
-		int nextNum = boardService.getNextNum();
-		
-		List<AttachVO> attachList = uploadFilesAndGetAttachList(files, nextNum);
-		
-		String id = (String) session.getAttribute("id");
-		boardVO.setNum(nextNum);
-		boardVO.setMemberId(id);
-		boardVO.setRegDate(new Date());
-		boardVO.setReRef(targetBoardVO.getReRef());
-		boardVO.setReLev(targetBoardVO.getReLev() + 1);
-		boardVO.setReSeq(targetBoardVO.getReSeq() + 1);
-		boardVO.setAttachList(attachList);
-
-		System.out.println("수정후 boardVO : " + boardVO);
-
-		boardService.replyBoard(boardVO);
-
-		return "redirect:/board/content?num=" + boardVO.getNum() + "&pageNum=" + pageNum;
-	}
+	/****************************** Method End ******************************/
+	
 }

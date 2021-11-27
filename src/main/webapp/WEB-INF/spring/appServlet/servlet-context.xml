@@ -38,8 +38,13 @@
 
 		<interceptor>
 			<mapping path="/member/*" />
-			<exclude-mapping path="/member/signUp" />
+			<mapping path="/board/*" />
+			<mapping path="/quiz/*" />
 			<exclude-mapping path="/member/login" />
+			<exclude-mapping path="/member/signUp" />
+			<exclude-mapping path="/board/list" />
+			<exclude-mapping path="/board/content" />
+			<exclude-mapping path="/quiz/list" />
 			<beans:bean class="com.example.interceptor.LoginCheckInterceptor" />
 		</interceptor>
 

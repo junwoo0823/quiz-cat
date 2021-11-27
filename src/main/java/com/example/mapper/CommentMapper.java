@@ -19,17 +19,14 @@ public interface CommentMapper {
 	int getMyAllCommentsCount(@Param("cri") Criteria cri, @Param("id") String id);
 	
 	// =================== insert ======================
-	
 	void insertComment(CommentVO commentVO);
 	
-	
 	// =================== update ======================
-
 	void updateComment(CommentVO commentVO);
 	
 	void updateCommentReSeq(CommentVO commentVO);
 	
 	// =================== delete ======================
-	
 	void deleteCommentByNum(int num);
+	
 }

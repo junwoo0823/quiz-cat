@@ -22,12 +22,14 @@ import com.example.service.BoardService;
 @RequestMapping("/api/*")
 public class RecBoardRestController {
 	
+	
 	private BoardService boardService;
 	
 	public RecBoardRestController(BoardService boardService) {
 		super();
 		this.boardService = boardService;
 	}
+	
 
 	@GetMapping(value = "/recBoard/{boardNum}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })

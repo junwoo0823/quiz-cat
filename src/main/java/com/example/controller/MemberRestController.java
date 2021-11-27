@@ -18,12 +18,14 @@ import com.example.service.MemberService;
 @RequestMapping("/api/*")
 public class MemberRestController {
 	
+	
 	private MemberService memberService;
 
 	public MemberRestController(MemberService memberService) {
 		super();
 		this.memberService = memberService;
 	}
+	
 	
 	@GetMapping(value = "/member/{id}", produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })

@@ -33,7 +33,6 @@ import com.example.domain.MemberVO;
 import com.example.domain.PageDTO;
 import com.example.domain.ProfileImg;
 import com.example.domain.SolveHistoryVO;
-import com.example.service.BoardService;
 import com.example.service.MemberService;
 import com.example.service.ProfileService;
 import com.example.service.QuizService;
@@ -161,23 +160,23 @@ public class MemberController {
 	@GetMapping("/myComment")
 	public String myreplyListpage(Criteria cri, Model model, HttpSession session) {
 
-			System.out.println("======== /myComment ========");
+		System.out.println("======== /myComment ========");
 
-			String id = (String) session.getAttribute("id");
+		String id = (String) session.getAttribute("id");
 
-			List<CommentVO> myCommentList = memberService.getMyCommentListByCri(cri, id);
+		List<CommentVO> myCommentList = memberService.getMyCommentListByCri(cri, id);
 
-			int totalCount = memberService.getMyAllCommentsCount(cri, id);
+		int totalCount = memberService.getMyAllCommentsCount(cri, id);
 
-			System.out.println("myCommentList : " + myCommentList);
-			System.out.println("totalCount : " + totalCount);
+		System.out.println("myCommentList : " + myCommentList);
+		System.out.println("totalCount : " + totalCount);
 
-			PageDTO pageDTO = new PageDTO(cri, totalCount);
+		PageDTO pageDTO = new PageDTO(cri, totalCount);
 
-			model.addAttribute("commentList", myCommentList);
-			model.addAttribute("pageMaker", pageDTO);
+		model.addAttribute("commentList", myCommentList);
+		model.addAttribute("pageMaker", pageDTO);
 
-			return "member/myComment";
+		return "member/myComment";
 	} // myComment
 
 	@GetMapping("/myQuiz")
@@ -231,7 +230,8 @@ public class MemberController {
 	/****************************** PostMapping ******************************/
 
 	@PostMapping("/signUp")
-	public ResponseEntity<String> signUp(MemberVO memberVO, MultipartFile multipartFile, HttpSession session) throws IllegalStateException, IOException {
+	public ResponseEntity<String> signUp(MemberVO memberVO, MultipartFile multipartFile, HttpSession session)
+			throws IllegalStateException, IOException {
 
 		// 회원가입 날짜 설정
 		memberVO.setRegDate(new Date());
@@ -245,8 +245,7 @@ public class MemberController {
 		String birthday = memberVO.getBirthday();
 		birthday = birthday.replace("-", ""); // 하이픈 문자열을 빈문자열로 변경
 		memberVO.setBirthday(birthday);
-		
-		// ======================= 프로필 설정하기 ========================
+
 		// 첨부파일 업로드(썸네일 생성) 후 profilepicVO 리턴
 		ProfileImg profileImg = uploadProfile(multipartFile, memberVO.getId(), "profileImg"); // 예외처리하기
 		System.out.println("profile : " + profileImg);
@@ -258,7 +257,7 @@ public class MemberController {
 
 			session.setAttribute("profileImg", profileImg); // VO도 같이 가져오기
 		}
-		
+
 		memberService.register(memberVO);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -320,10 +319,6 @@ public class MemberController {
 			response.addCookie(cookie);
 		}
 
-		// 리다이렉트 방식 1. - String
-		// return "redirect:/";
-
-		// 리다이렉트 방식 2. - ResponseEntity
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", "/"); // redirect 경로를 "/"로 지정
 		// 리다이렉트일 경우는 응답코드로 HttpStatus.FOUND 를 지정해야함에 주의!
@@ -383,7 +378,6 @@ public class MemberController {
 		}
 		// 비밀번호 일치할 때
 
-		// ======================= 프로필 설정하기 ========================
 		// 첨부파일 업로드(썸네일 생성) 후 profilepicVO 리턴
 		ProfileImg profileImg = uploadProfile(multipartFile, memberVO.getId(), "profileImg"); // 예외처리하기
 		System.out.println("POST modify... profilepicVO : " + profileImg); //
@@ -405,9 +399,6 @@ public class MemberController {
 
 			session.setAttribute("profileImg", profileImg); // VO도 같이 가져오기
 		}
-
-		// ---------------------------- 여기까지가 프로필 관련 내용 ----------------------------
-		// ---------------------------- 회원 정보 관련 -------------------------
 
 		// 회원정보 수정날짜로 수정하기
 		memberVO.setRegDate(new Date());
@@ -582,5 +573,7 @@ public class MemberController {
 		}
 
 	} // deleteProfile
+
+	/****************************** Method End ******************************/
 
 }
