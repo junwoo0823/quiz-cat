@@ -56,7 +56,45 @@
 								</ul>
 							</div>
 							<hr>
-							<div>${ board.content }</div>
+							<div class="my-3">${ board.content }</div>
+							
+							<div id="dashedLine"></div>
+							<div class="col-md-12 attach-title">
+                            <h4>첨부파일</h4>
+                        </div>
+                        <div>
+                            <c:choose>
+                                <c:when test="${ fn:length(attachList) gt 0 }">
+                                    <c:forEach var="attach" items="${ attachList }">
+                                        <c:if test="${ attach.filetype eq 'O' }">
+                                            <c:set var="fileCallPath"
+                                                value="${ attach.uploadpath }/${ attach.uuid }_${ attach.filename }" />
+                                            <div>
+                                                <a href="/download?fileName=${ fileCallPath }"><i class="far fa-file-alt me-2"></i>${ attach.filename }</a>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${ attach.filetype eq 'I' }">
+                                            <c:set var="fileCallPath"
+                                                value="${ attach.uploadpath }/s_${ attach.uuid }_${ attach.filename }"/>
+                                            <c:set var="fileCallPathOrigin"
+                                                value="${ attach.uploadpath }/${ attach.uuid }_${ attach.filename }"/>
+                                            <div>
+                                                <a href="/download?fileName=${ fileCallPathOrigin }"><i class="far fa-file-image me-2"></i>${ attach.filename }
+                                                    <img src="/display?fileName=${ fileCallPath }" style="width: 50px">
+                                                </a>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div>
+                                        <a><i class="fas fa-file-excel me-2"></i>첨부파일이 존재하지 않습니다.</a>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+							<div id="dashedLine"></div>
+							
 							<div class="mt-4 text-center likey-row">
 	                            <div class="likey-box" onclick="clickBtnLikey()">
 	                                <div class="my-2 text-center">
