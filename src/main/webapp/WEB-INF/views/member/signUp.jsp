@@ -49,12 +49,12 @@
 
 									<div class="form-group input-group-sm">
 										<label for="passwd">비밀번호</label>
-										<input id="passwd" type="password" class="form-control" name="passwd" required>
+										<input id="npasswd" type="password" class="form-control" name="passwd" required>
 									</div>
 
 									<div class="form-group input-group-sm">
 										<label for="passwd2">비밀번호 재확인</label>
-										<input id="passwd2" type="password" class="form-control" name="passwd2" required>
+										<input id="npasswd2" type="password" class="form-control" name="passwd2" required>
 									</div>
 
 									<div class="form-group input-group-sm">
@@ -137,13 +137,55 @@
 		function option() {
 			$('#optional').show();
 			$('#optionalBtn').hide();
-		}
+		};
 		
 		$('input#id').on('keyup', function(event) {
 			if (!(event.keyCode >= 37 && event.keyCode <= 40)) {
 			    var id = $(this).val();
 			    $(this).val(id.replace(/[^a-z0-9]/gi, ''));
 			}
+		});
+
+		// 회원가입 아이디 중복여부 확인하기
+		$('input#id').on('focusout', function () {
+		    
+			var id = $(this).val();
+			if (id.length == 0) {
+			    return;
+			}
+		    
+		    // ajax 함수 호출
+			$.ajax({
+			url: '/api/members/' + id,
+			method: 'GET',
+				success: function (data) {
+				console.log(data);
+				console.log(typeof data);
+				
+					if (data.count == 0) {
+						alert('사용 할 수 있는 아이디입니다.');
+					} else { // data.count == 1
+						alert('중복된 아이디입니다.');
+						$('input#id').focus().val('');
+					}
+				} // success
+			});
+		    
+		});
+		
+		$('input#npasswd2').on('focusout',function(){
+			
+			const npasswd2 = $(this).val();
+			const npasswd = $('input#npasswd').val();
+			
+			if(npasswd == npasswd2){
+				alert('비밀번호가 일치합니다.');
+			}else{
+				alert('비밀번호가 일치하지 않습니다.');
+			    $('input#npasswd2').val('');
+			    $('input#npasswd').focus().val('');
+			}
+		      
 		});
     </script>
 

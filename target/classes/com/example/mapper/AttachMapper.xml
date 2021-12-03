@@ -12,7 +12,7 @@
 		WHERE board_num = #{boardNum}
 	]]>
 	</select>
-	
+
 	<select id="getAttachesByUuid" resultType="attachVO">
 	<![CDATA[
 		SELECT *
@@ -23,32 +23,39 @@
 			#{uuid}
 		</foreach>
 	</select>
-	
+
+	<select id="getAttachesByUploadpath" resultType="attachVO">
+    <![CDATA[
+		SELECT *
+		FROM attach
+		WHERE uploadpath = #{uploadpath}
+    ]]>
+	</select>
+
 	<!-- =================== insert ====================== -->
 	<insert id="addAttaches">
 	<![CDATA[
 		INSERT INTO attach (uuid, uploadpath, filename, filetype, board_num)
 		VALUES
 	]]>
-	<foreach collection="list" item="attach" separator=",">
-		(#{attach.uuid}, #{attach.uploadpath}, #{attach.filename}, #{attach.filetype}, #{attach.boardNum})
-	</foreach>
+		<foreach collection="list" item="attach" separator=",">
+			(#{attach.uuid}, #{attach.uploadpath}, #{attach.filename},
+			#{attach.filetype}, #{attach.boardNum})
+		</foreach>
 	</insert>
-	
-	<!-- =================== update ====================== -->
-	
-	
+
 	<!-- =================== delete ====================== -->
 	<delete id="deleteAttachesByUuidList">
 	<![CDATA[
 		DELETE FROM attach
 		WHERE uuid IN
 	]]>
-		<foreach item="uuid" collection="list" open="(" separator="," close=")">
+		<foreach item="uuid" collection="list" open="(" separator=","
+			close=")">
 			#{uuid}
 		</foreach>
 	</delete>
-	
+
 	<delete id="deleteAttachesByBoardNum">
 	<![CDATA[
 		DELETE FROM attach

@@ -246,11 +246,11 @@ public class MemberController {
 		birthday = birthday.replace("-", ""); // 하이픈 문자열을 빈문자열로 변경
 		memberVO.setBirthday(birthday);
 
-		// 첨부파일 업로드(썸네일 생성) 후 profilepicVO 리턴
+		// 첨부파일 업로드(썸네일 생성) 후 profileImg 리턴
 		ProfileImg profileImg = uploadProfile(multipartFile, memberVO.getId(), "profileImg"); // 예외처리하기
 		System.out.println("profile : " + profileImg);
 
-		// 업로드 또는 변경할 이미지 파일이 있는 경우
+		// 업로드 할 이미지 파일이 있는 경우
 		if (profileImg != null) {
 			// 프로필 사진 테이블에서 정보 삽입하기
 			profileImgService.insertProfileImg(profileImg);
@@ -504,13 +504,13 @@ public class MemberController {
 
 		profileImg = new ProfileImg();
 
-		String uploadFolder = "C:/team/upload"; // 업로드 기준경로
+		String uploadFolder = "C:/portfolio/upload"; // 업로드 기준경로
 
 		File uploadPath = new File(uploadFolder, getFolder());
 
 		// 프로필 사진일 경우(경로 변경)
 		if (isProfileImg != null) {
-			uploadFolder = "C:/team/upload/profile/" + id;
+			uploadFolder = "C:/portfolio/upload/profile/" + id;
 			uploadPath = new File(uploadFolder);
 		}
 
@@ -549,12 +549,12 @@ public class MemberController {
 			return;
 		}
 
-		String basePath = "C:/team/upload";
+		String basePath = "C:/portfolio/upload";
 
 		String uploadpath = basePath + "/" + profileImg.getUploadpath();
 
 		if (isProfileImg != null) {
-			basePath = "C:/team/upload/profile/" + profileImg.getMemberId();
+			basePath = "C:/portfolio/upload/profile/" + profileImg.getMemberId();
 
 		}
 
