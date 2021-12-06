@@ -44,7 +44,7 @@
 
 									<div class="form-group input-group-sm">
 										<label for="id">아이디</label>
-										<input id="id" type="text" class="form-control" name="id" required autofocus>
+										<input id="nid" type="text" class="form-control" name="id" required autofocus>
 									</div>
 
 									<div class="form-group input-group-sm">
@@ -139,7 +139,7 @@
 			$('#optionalBtn').hide();
 		};
 		
-		$('input#id').on('keyup', function(event) {
+		$('input#nid').on('keyup', function(event) {
 			if (!(event.keyCode >= 37 && event.keyCode <= 40)) {
 			    var id = $(this).val();
 			    $(this).val(id.replace(/[^a-z0-9]/gi, ''));
@@ -147,7 +147,7 @@
 		});
 
 		// 회원가입 아이디 중복여부 확인하기
-		$('input#id').on('focusout', function () {
+		$('input#nid').on('focusout', function () {
 		    
 			var id = $(this).val();
 			if (id.length == 0) {
@@ -166,7 +166,7 @@
 						alert('사용 할 수 있는 아이디입니다.');
 					} else { // data.count == 1
 						alert('중복된 아이디입니다.');
-						$('input#id').focus().val('');
+						$('input#nid').focus().val('');
 					}
 				} // success
 			});

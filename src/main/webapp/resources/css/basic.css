@@ -27,6 +27,7 @@ body {
 	font-family: 'ONE-Mobile-Regular', 'ONE-Mobile-Title', 'Nunito', sans-serif;
 	line-height: 1.7rem;
 	overflow-x:hidden;
+	overflow-y:scroll;
 }
 
 a {
