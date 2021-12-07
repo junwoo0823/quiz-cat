@@ -53,7 +53,7 @@
 							<div class="card-body text-dark row">
 
 								<c:forEach var="quiz" items="${ quizList }">
-									<div class="col-4">
+									<div class="col-4 mb-4">
 										<h4 class="question">${ quiz.questionNum }. ${ quiz.question }</h4>
 										<input type="radio" class="btn btn-check" id="${ quiz.question }-1" name="reply${ quiz.questionNum }" value="1" required>
 										<label class="btn btn-outline-secondary" for="${ quiz.question }-1">${ quiz.numOne }</label>
