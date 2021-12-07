@@ -26,8 +26,8 @@ body {
 	font-size: 1.125rem;
 	font-family: 'ONE-Mobile-Regular', 'ONE-Mobile-Title', 'Nunito', sans-serif;
 	line-height: 1.7rem;
-	overflow-x:hidden;
-	overflow-y:scroll;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 a {
@@ -82,8 +82,7 @@ main #btn-delete {
     right: 100px;
 }
 
-#passwd, #passwd2, 
-#npasswd, #npasswd2 {
+input[type=password] {
 	font-family: 'Nunito', sans-serif;
 }
 
@@ -142,7 +141,7 @@ nav {
 /*-- Hero Section --*/
 
 .hero {
-	padding: 100px 0;
+	padding: 5em 0;
 }
 
 .hero-title {

@@ -56,13 +56,13 @@
 									<div class="col-4 mb-4">
 										<h4 class="question">${ quiz.questionNum }. ${ quiz.question }</h4>
 										<input type="radio" class="btn btn-check" id="${ quiz.question }-1" name="reply${ quiz.questionNum }" value="1" required>
-										<label class="btn btn-outline-secondary" for="${ quiz.question }-1">${ quiz.numOne }</label>
+										<label class="mt-2 btn btn-outline-secondary" for="${ quiz.question }-1">${ quiz.numOne }</label>
 										<input type="radio" class="btn btn-check" id="${ quiz.question }-2" name="reply${ quiz.questionNum }" value="2" required>
-										<label class="btn btn-outline-secondary" for="${ quiz.question }-2">${ quiz.numTwo }</label>
+										<label class="mt-2 btn btn-outline-secondary" for="${ quiz.question }-2">${ quiz.numTwo }</label>
 										<input type="radio" class="btn btn-check" id="${ quiz.question }-3" name="reply${ quiz.questionNum }" value="3" required>
-										<label class="btn btn-outline-secondary" for="${ quiz.question }-3">${ quiz.numThree }</label>
+										<label class="mt-2 btn btn-outline-secondary" for="${ quiz.question }-3">${ quiz.numThree }</label>
 										<input type="radio" class="btn btn-check" id="${ quiz.question }-4" name="reply${ quiz.questionNum }" value="4" required>
-										<label class="btn btn-outline-secondary" for="${ quiz.question }-4">${ quiz.numFour }</label>
+										<label class="mt-2 btn btn-outline-secondary" for="${ quiz.question }-4">${ quiz.numFour }</label>
 									</div>
 									<br>
 								</c:forEach>
