@@ -36,7 +36,7 @@
 					<div class="row justify-content-md-center">
 						<div class="card-wrapper">
 							<div class="card fat shadow rounded">
-								<div class="card-body">
+								<div class="card-body text-center">
 
 									<h4 class="card-title text-center">회원가입</h4>
 
@@ -83,12 +83,12 @@
 										<div class="form-group input-group-sm">
 											<label for="gender">성별</label>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="gender" id="gender" value="M" checked>
-												<label class="form-check-label">남자</label>
+											    <input type="radio" class="btn btn-check" id="gender-M" name="gender" value="M">
+                                                <label class="btn btn-outline-secondary" for="gender-M">남자</label>
 											</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="gender" id="gender" value="F">
-												<label class="form-check-label">여자</label>
+												<input type="radio" class="btn btn-check" id="gender-F" name="gender" value="F">
+                                                <label class="btn btn-outline-secondary" for="gender-F">여자</label>
 											</div>
 										</div>
 
@@ -100,12 +100,12 @@
 										<div class="form-group input-group-sm">
 											<label for="recvEmail">이메일 수신 여부</label>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="recvEmail" id="recvEmail" value="Y" checked>
-												<label class="form-check-label">예</label>
+												<input type="radio" class="btn btn-check" id="recvEmail-Y" name="recvEmail" value="Y">
+                                                <label class="btn btn-outline-secondary" for="recvEmail-Y">예</label>
 											</div>
 											<div class="form-check form-check-inline">
-												<input class="form-check-input" type="radio" name="recvEmail" id="recvEmail" value="N">
-												<label class="form-check-label">아니오</label>
+											    <input type="radio" class="btn btn-check" id="recvEmail-N" name="recvEmail" value="N">
+                                                <label class="btn btn-outline-secondary" for="recvEmail-N">아니오</label>
 											</div>
 										</div>
 										

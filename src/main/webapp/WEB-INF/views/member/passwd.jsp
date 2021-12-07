@@ -60,27 +60,21 @@
 									
 									<hr>
 
-									<div class="form-group input-group-sm">
-										<label for="id">아이디</label>
-										<input id="id" type="text" class="form-control" name="id" value="${id}" readonly>
-									</div>
+									<input id="id" type="hidden" class="form-control" name="id" value="${id}">
 
 									<div class="form-group input-group-sm">
 										<label for="passwd">기존 비밀번호</label>
 										<input id="passwd" type="password" class="form-control" name="passwd" required>
-										<div class="invalid-feedback">Password is Password?</div>
 									</div>
 
 									<div class="form-group input-group-sm">
 										<label for="passwd">새 비밀번호</label>
 										<input id="npasswd" type="password" class="form-control" name="npasswd" required>
-										<div class="invalid-feedback">Password is Password?</div>
 									</div>
 
 									<div class="form-group input-group-sm">
 										<label for="passwd">비밀번호 재확인</label>
 										<input id="npasswd2" type="password" class="form-control" name="npasswd2" required>
-										<div class="invalid-feedback">Password is Password?</div>
 									</div>
 									
 								</div>
@@ -111,7 +105,8 @@
 	        
 	        if (npasswd != npasswd2) {
 	            alert('비밀번호가 일치하지 않습니다.');
-	            $('input#npasswd').focus();
+	            $('input#npasswd2').val('');
+	            $('input#npasswd').focus().val('');
 	        }
 	    });
 	    

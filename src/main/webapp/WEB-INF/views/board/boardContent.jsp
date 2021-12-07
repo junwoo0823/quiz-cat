@@ -52,6 +52,7 @@
 								<ul class="list" style="margin-left: -35px;">
 									<li>&nbsp;<b>${ board.memberId }</b>&nbsp;</li>
 									<li>&nbsp;<b>조회수</b>&nbsp;${ board.viewCount }&nbsp;</li>
+									<li class="comment-count">&nbsp;<b>댓글</b>&nbsp;${ fn:length(commentList) }&nbsp;</li>
 									<li>&nbsp;<b>작성일</b>&nbsp;<fmt:formatDate value="${ board.regDate }" pattern="yyyy.MM.dd (HH:mm)" />&nbsp;</li>
 								</ul>
 							</div>

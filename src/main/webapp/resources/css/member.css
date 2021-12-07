@@ -40,3 +40,8 @@ table {
 tbody tr {
     cursor: pointer;
 }
+
+.form-check {
+	margin-right: 0;
+	margin-left: -1.5em;
+}

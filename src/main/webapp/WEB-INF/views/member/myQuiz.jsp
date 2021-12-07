@@ -121,15 +121,11 @@
 		
 		                        <form action="/member/myQuizList" method="GET" id="frm">
 		                            <div class="input-group mx-auto my-2" style="width: 60%">
-		                                <div class="input-group-prepend">
-		                                    <select class="btn btn-dark px-2" name="type">
-		                                        <option value="title" selected>제목</option>
-		                                    </select>
-		                                </div>
+	                                    <select class="btn btn-dark px-2" name="type">
+	                                        <option value="title" selected>제목</option>
+	                                    </select>
 		                                <input id="autocomplete-input" type="text" class="form-control autocomplete" name="keyword" value="${ pageMaker.cri.keyword }">
-		                                <div class="input-group-append">
-		                                    <button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
-		                                </div>
+	                                    <button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
 		                            </div>
 		                        </form>
 

@@ -127,17 +127,13 @@
 								<form action="/member/myboardList" method="GET" id="frm">
 									<input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum }">
 									<div class="input-group mx-auto my-2" style="width: 60%">
-										<div class="input-group-prepend">
-											<select class="btn btn-dark px-2" name="type">
-												<option value="" disabled selected>선택</option>
-												<option value="subject" ${ (pageMaker.cri.type eq 'subject') ? 'selected' : '' }>제목</option>
-												<option value="content" ${ (pageMaker.cri.type eq 'content') ? 'selected' : '' }>내용</option>
-											</select>
-										</div>
+										<select class="btn btn-dark px-2" name="type">
+											<option value="" disabled selected>선택</option>
+											<option value="subject" ${ (pageMaker.cri.type eq 'subject') ? 'selected' : '' }>제목</option>
+											<option value="content" ${ (pageMaker.cri.type eq 'content') ? 'selected' : '' }>내용</option>
+										</select>
 										<input id="autocomplete-input" type="text" class="form-control autocomplete" name="keyword" value="${ pageMaker.cri.keyword }">
-										<div class="input-group-append">
-											<button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
-										</div>
+										<button class="btn btn-dark px-3" type="submit" id="btnSearch">검색</button>
 									</div>
 								</form>
 
