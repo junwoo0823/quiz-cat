@@ -81,24 +81,24 @@
 						</tbody>
 					</table>
 
-					<div>
-						<ul class="pagination justify-content-center">
+					<div class="page-group">
+						<ul class="page">						
 							<c:if test="${ pageMaker.prev eq true }">
-								<li class="page-item">
-									<a class="page-link" href="/board/list?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
+								<li>
+									<a class="arrow left shadow-sm" href="/board/list?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }">
+										<i class="fa-solid fa-angles-left"></i>
 									</a>
 								</li>
 							</c:if>
 							<c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
-								<li class="page-item ${ pageMaker.cri.pageNum eq i ? 'active' : '' }">
-									<a class="page-link" href="/board/list?pageNum=${ pageScope.i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }">${ i }</a>
+								<li>
+									<a class="num shadow-sm ${ pageMaker.cri.pageNum eq i ? 'active' : '' }" href="/board/list?pageNum=${ pageScope.i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }">${ i }</a>
 								</li>
 							</c:forEach>
 							<c:if test="${ pageMaker.next eq true }">
-								<li class="page-item">
-									<a class="page-link" href="/board/list?pageNum=${ pageMaker.endPage + 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
+								<li>
+									<a class="arrow right shadow-sm" href="/board/list?pageNum=${ pageMaker.endPage + 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }">
+										<i class="fa-solid fa-angles-right"></i>
 									</a>
 								</li>
 							</c:if>

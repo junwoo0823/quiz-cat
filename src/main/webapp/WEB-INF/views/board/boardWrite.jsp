@@ -77,7 +77,7 @@
 									<hr>
 
 									<div class="small-6 columns d-flex justify-content-center" style="margin-top: 15px;">
-										<button type="submit" class="btn btn-primary" onclick="getRegister();">등록하기</button>
+										<button type="submit" class="btn btn-dark" onclick="getRegister();">등록하기</button>
 									</div>
 								</div>
 

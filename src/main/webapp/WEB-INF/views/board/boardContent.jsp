@@ -60,9 +60,6 @@
 							<div class="my-3">${ board.content }</div>
 							
 							<div id="dashedLine"></div>
-							<div class="col-md-12 attach-title">
-                            <h4>첨부파일</h4>
-                        </div>
                         <div>
                             <c:choose>
                                 <c:when test="${ fn:length(attachList) gt 0 }">
@@ -99,7 +96,7 @@
 							<div class="mt-4 text-center likey-row">
 	                            <div class="likey-box" onclick="clickBtnLikey()">
 	                                <div class="my-2 text-center">
-	                                   <span class="likey-icon">
+	                                   <span class="likey-icon mx-1">
 	                                    <c:choose>
 	                                        <c:when test="${ isRecommended eq true }">
 	                                            <i class="fas fa-laugh-beam"></i>
@@ -109,7 +106,7 @@
 	                                        </c:otherwise>
 	                                    </c:choose>
 	                                    </span>
-	                                    <span class="recCount">${ recCount }</span>
+	                                    <span class="recCount mx-1">${ recCount }</span>
 	                                </div>
 	                            </div>
 	                        </div>

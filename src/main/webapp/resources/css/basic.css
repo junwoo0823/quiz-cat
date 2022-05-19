@@ -18,13 +18,27 @@
 
 /*-- General Styles --*/
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--dark-blue: #334257;
+	--cyan: #476072;
+	--blue: #548CA8;
+	--white: #EEE;
+	--black: #383838;
+}
+
 body {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	color: #4e4e4e;
 	background-color: #F0F0F0;
 	font-size: 1.125rem;
-	font-family: 'ONE-Mobile-Regular', 'ONE-Mobile-Title', 'Nunito', sans-serif;
+	font-family: 'ONE-Mobile-Regular', 'ONE-Mobile-Title', sans-serif;
 	line-height: 1.7rem;
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -40,7 +54,7 @@ table {
 }
 
 .text-dark {
-	color: #161616!important;
+	color: #161616;
 }
 
 .btn-dark {
@@ -84,17 +98,73 @@ main #btn-delete {
 }
 
 input[type=password] {
-	font-family: 'Nunito', sans-serif;
+	font-family: sans-serif;
+}
+
+.page-group {
+	text-align: center;
+}
+
+.page {
+	list-style: none;
+	display: inline-block;
+	padding: 0;
+	margin-top: 20px;
+}
+
+.page li {
+	display: inline;
+	text-align: center;
+}
+
+.page a {
+	float: left;
+	display: block;
+	font-size: 20px;
+	text-decoration: none;
+	padding: 5px 12px;
+	color: #96a0ad;
+	line-height: 1.5;
+}
+
+.left:hover, .right:hover {
+	color: #2e9cdf;
+}
+
+.page a.active {
+	cursor: default;
+	color: #ffffff;
+}
+
+.page a:active {
+	outline: none;
+}
+
+.page .num {
+	margin-left: 8px;
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 100%;
+	background: #fff;
+}
+
+.page .num:hover {
+	background-color: black;
+	color: #ffffff;
+}
+
+.page .active {
+	background-color: black;
+	cursor: pointer;
 }
 
 /*-- Navigation Menu --*/
 
 nav {
 	position:relative;
-}
-
-.nav-shadow {
-	box-shadow: 0 0 2px 0px rgba(0, 0, 0, .1)
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, .2)
 }
 
 .primary-menu {
@@ -113,7 +183,7 @@ nav {
 }
 
 .primary-menu .dropdown-menu {
-	border-color: rgba(0, 0, 0, .05);
+	border-color: rgba(0, 0, 0, .1);
 }
 
 .primary-menu .dropdown-item:focus,
@@ -153,7 +223,7 @@ nav {
 
 .hero-title strong {
 	color: white;
-	text-shadow:1px 1px 1px #000;
+	text-shadow:1px 1px 2px #000;
 }
 
 .hero-subtitle {
@@ -322,9 +392,9 @@ nav {
 /*-- Footer --*/
 
 .footer {
-	font-family: 'Nunito', sans-serif;
+	margin-top: 3em;
+	font-family: sans-serif;
 	background: #161616;
-	margin-top: 60px;
 }
 
 .footer p {
@@ -343,10 +413,7 @@ nav {
 /*-- Animations Start --*/
 
 .floating {
-	animation-name: floating;
-	animation-duration: 3s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
+	animation: floating 3s ease-in-out infinite;
 }
 
 @keyframes floating {
@@ -354,13 +421,12 @@ nav {
 		transform: translate(-50%, -50%);
 	}
 	50% {
-		transform: translate(-50%, calc(-50% - 5px));
+		transform: translate(-50%, calc(-50% - 10px));
 	}
 	100% {
 		transform: translate(-50%, -50%);
 	}
 }
-
 
 /*-- Animations End--*/
 

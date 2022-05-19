@@ -99,30 +99,30 @@
                                         </c:choose>
 									</tbody>
 								</table>
-
-								<ul class="pagination justify-content-center mt-4">
-									<c:if test="${ pageMaker.prev eq true }">
-										<li class="page-item">
-											<a href="/member/myboardList?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myboard">
-											    <span aria-hidden="true">&laquo;</span>
-											</a>
-										</li>
-									</c:if>
-
-									<c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
-										<li class="page-item ${ pageMaker.cri.pageNum eq i ? 'active' : '' }">
-											<a class="page-link" href="/member/myboardList?pageNum=${ i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myboard">${ i }</a>
-										</li>
-									</c:forEach>
-
-									<c:if test="${ pageMaker.next eq true }">
-										<li class="page-item">
-											<a href="/member/myboardList?pageNum=${ pageMaker.endPage + 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myboard">
-											    <span aria-hidden="true">&raquo;</span>
-											</a>
-										</li>
-									</c:if>
-								</ul>
+								
+								<div class="page-group">
+									<ul class="page">						
+										<c:if test="${ pageMaker.prev eq true }">
+											<li>
+												<a class="arrow left shadow-sm" href="/member/myboardList?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myboard">
+													<i class="fa-solid fa-angles-left"></i>
+												</a>
+											</li>
+										</c:if>
+										<c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
+											<li>
+												<a class="num shadow-sm ${ pageMaker.cri.pageNum eq i ? 'active' : '' }" href="/member/myboardList?pageNum=${ pageScope.i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myboard">${ i }</a>
+											</li>
+										</c:forEach>
+										<c:if test="${ pageMaker.next eq true }">
+											<li>
+												<a class="arrow right shadow-sm" href="/member/myboardList?pageNum=${ pageMaker.endPage + 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myboard">
+													<i class="fa-solid fa-angles-right"></i>
+												</a>
+											</li>
+										</c:if>
+									</ul>
+								</div>
 
 								<form action="/member/myboardList" method="GET" id="frm">
 									<input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum }">

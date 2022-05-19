@@ -94,30 +94,30 @@
                                         </c:choose>
                                     </tbody>
                                 </table>
-
-		                        <ul class="pagination justify-content-center mt-4">
-		                            <c:if test="${ pageMaker.prev eq true }">
-		                                <li class="page-item">
-		                                    <a href="/member/myQuizList?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myQuiz">
-		                                        <span aria-hidden="true">&laquo;</span>
-		                                    </a>
-		                                </li>
-		                            </c:if>
-		
-		                            <c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
-		                                <li class="page-item ${ pageMaker.cri.pageNum eq i ? 'active' : '' }">
-		                                    <a class="page-link" href="/member/myQuizList?pageNum=${ i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myQuiz">${ i }</a>
-		                                </li>
-		                            </c:forEach>
-		
-		                            <c:if test="${ pageMaker.next eq true }">
-		                                <li class="page-item">
-		                                    <a href="/member/myQuizList?pageNum=${ pageMaker.endPage + 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myQuiz">
-		                                        <span aria-hidden="true">&raquo;</span>
-		                                    </a>
-		                                </li>
-		                            </c:if>
-		                        </ul>
+		                        
+		                        <div class="page-group">
+									<ul class="page">						
+										<c:if test="${ pageMaker.prev eq true }">
+											<li>
+												<a class="arrow left shadow-sm" href="/member/myQuizList?pageNum=${ pageMaker.startPage - 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myQuiz">
+													<i class="fa-solid fa-angles-left"></i>
+												</a>
+											</li>
+										</c:if>
+										<c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
+											<li>
+												<a class="num shadow-sm ${ pageMaker.cri.pageNum eq i ? 'active' : '' }" href="/member/myQuizList?pageNum=${ pageScope.i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myQuiz">${ i }</a>
+											</li>
+										</c:forEach>
+										<c:if test="${ pageMaker.next eq true }">
+											<li>
+												<a class="arrow right shadow-sm" href="/member/myQuizList?pageNum=${ pageMaker.endPage + 1 }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#myQuiz">
+													<i class="fa-solid fa-angles-right"></i>
+												</a>
+											</li>
+										</c:if>
+									</ul>
+								</div>
 		
 		                        <form action="/member/myQuizList" method="GET" id="frm">
 		                            <div class="input-group mx-auto my-2" style="width: 60%">

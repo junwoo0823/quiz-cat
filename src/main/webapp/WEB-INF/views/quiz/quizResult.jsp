@@ -56,10 +56,10 @@
 				                <c:forEach var="quiz" items="${ incorrectList }">
 								<div class="col-4">
 								    <h4 class="question">${ quiz.questionNum }. ${ quiz.question }</h4>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numOne }</button>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numTwo }</button>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numThree }</button>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numFour }</button>
+								    <button class="mt-2 btn ${ quiz.answer eq '1' ? 'btn-danger' : 'btn-outline-secondary' }" disabled>${ quiz.numOne }</button>
+								    <button class="mt-2 btn ${ quiz.answer eq '2' ? 'btn-danger' : 'btn-outline-secondary' }" disabled>${ quiz.numTwo }</button>
+								    <button class="mt-2 btn ${ quiz.answer eq '3' ? 'btn-danger' : 'btn-outline-secondary' }" disabled>${ quiz.numThree }</button>
+								    <button class="mt-2 btn ${ quiz.answer eq '4' ? 'btn-danger' : 'btn-outline-secondary' }" disabled>${ quiz.numFour }</button>
 								    <hr>
 								    <p>정답 : ${ quiz.answer }번</p>
 								</div>
@@ -76,10 +76,10 @@
 				                <c:forEach var="quiz" items="${ correctList }">
 								<div class="col-4">
 								    <h4 class="question">${ quiz.questionNum }. ${ quiz.question }</h4>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numOne }</button>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numTwo }</button>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numThree }</button>
-								    <button class="mt-2 btn btn-outline-secondary" disabled>${ quiz.numFour }</button>
+								    <button class="mt-2 btn ${ quiz.answer eq '1' ? 'btn-primary' : 'btn-outline-secondary' }" disabled>${ quiz.numOne }</button>
+                                    <button class="mt-2 btn ${ quiz.answer eq '2' ? 'btn-primary' : 'btn-outline-secondary' }" disabled>${ quiz.numTwo }</button>
+                                    <button class="mt-2 btn ${ quiz.answer eq '3' ? 'btn-primary' : 'btn-outline-secondary' }" disabled>${ quiz.numThree }</button>
+                                    <button class="mt-2 btn ${ quiz.answer eq '4' ? 'btn-primary' : 'btn-outline-secondary' }" disabled>${ quiz.numFour }</button>
 								    <hr>
                                     <p>정답 : ${ quiz.answer }번</p>
 								</div>
